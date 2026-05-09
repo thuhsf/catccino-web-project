@@ -1,31 +1,29 @@
-import { randomUUID, type UUID } from "node:crypto";
-
 type CategoryProps = {
-	id?: UUID;
+	id?: string;
 	name: string;
 	slug: string;
 }
 
 class Category {
-	private readonly Id: UUID = randomUUID();
+	private readonly Id: string;
 	private Name: string;
 	private Slug: string;
 
 	constructor(props: CategoryProps) {
-		this.Id = props.id ?? randomUUID();
+		this.Id = props.id ?? "";
 		this.Name = props.name;
 		this.Slug = props.slug;
 	}
 
-	getId() {
+	getId(): string {
 		return this.Id;
 	}
 
-	getName() {
+	getName(): string {
 		return this.Name;
 	}
 
-	getSlug() {
+	getSlug(): string {
 		return this.Slug;
 	}
 

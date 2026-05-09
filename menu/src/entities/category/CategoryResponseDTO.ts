@@ -1,7 +1,5 @@
-import type { UUID } from "node:crypto";
-
 export interface CategoryResponseDTO {
-	id: UUID;
+	id: string;
 	name: string;
 	slug: string;
 }

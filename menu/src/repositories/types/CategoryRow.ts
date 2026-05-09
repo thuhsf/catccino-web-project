@@ -1,7 +1,6 @@
-import type { UUID } from "crypto";
 
 export type CategoryRow = {
-	id: UUID;
+	id: string;
 	name: string;
 	slug: string;
 }

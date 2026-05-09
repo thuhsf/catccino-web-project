@@ -1,12 +1,10 @@
-import type { UUID } from "node:crypto";
-
 type Product = {
 	name: string;
 	description: string;
 	price: number;
-	categoryId: UUID;
-	available: boolean;
-	imageUrl: string;
+	categoryId: string;
+	available?: boolean | undefined;
+	imageUrl?: string | undefined;
 }
 
 export interface ProductRequestDTO {

@@ -1,11 +1,9 @@
-import { randomUUID, type UUID } from "node:crypto";
-
 type ProductProps = {
-	id?: UUID;
+	id?: string;
 	name: string;
 	description: string;
 	price: number;
-	categoryId: UUID;
+	categoryId: string;
 	available?: boolean;
 	imageUrl?: string;
 	createdAt?: Date;
@@ -13,18 +11,18 @@ type ProductProps = {
 };
 
 class Product {
-	private readonly Id: UUID;
+	private readonly Id: string;
 	private Name: string;
 	private Description: string;
 	private Price: number;
-	private CategoryId: UUID;
+	private CategoryId: string;
 	private Available: boolean;
 	private ImageUrl: string;
 	private CreatedAt: Date;
 	private UpdatedAt: Date;
 
 	constructor(props: ProductProps) {
-		this.Id = props.id ?? randomUUID();
+		this.Id = props.id ?? "";
 		this.Name = props.name;
 		this.Description = props.description;
 		this.Price = props.price;
@@ -47,7 +45,7 @@ class Product {
 		}
 	}
 
-	getId(): UUID {
+	getId(): string {
 		return this.Id;
 	}
 
@@ -63,7 +61,7 @@ class Product {
 		return this.Price;
 	}
 
-	getCategoryId(): UUID {
+	getCategoryId(): string {
 		return this.CategoryId;
 	}
 

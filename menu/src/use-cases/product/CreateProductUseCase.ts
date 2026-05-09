@@ -29,8 +29,8 @@ class CreateProductUseCase {
 			description: data.product.description,
 			price: data.product.price,
 			categoryId: data.product.categoryId,
-			available: data.product.available,
-			imageUrl: data.product.imageUrl
+			available: data.product.available ?? false,
+			imageUrl: data.product.imageUrl ?? ""
 		})
 
 		const createdProduct = await this.productRepository.create(newProduct);

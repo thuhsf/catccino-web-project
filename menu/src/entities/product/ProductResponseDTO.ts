@@ -1,13 +1,11 @@
-import type { UUID } from "node:crypto";
-
 type Product = {
-	id: UUID;
+	id: string;
 	name: string;
 	description: string;
 	price: number;
-	categoryId: UUID;
-	available: boolean;
-	imageUrl?: string;
+	categoryId: string;
+	available?: boolean | undefined;
+	imageUrl?: string | undefined;
 	createdAt: Date;
 	updatedAt: Date;
 }

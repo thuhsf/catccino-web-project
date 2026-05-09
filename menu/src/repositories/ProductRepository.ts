@@ -111,3 +111,5 @@ class ProductFactory implements IProductFactory {
 		return new ProductRespository();
 	}
 }
+
+export { ProductFactory, ProductRespository }

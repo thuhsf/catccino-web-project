@@ -69,7 +69,7 @@ class CategoryRepository implements ICategoryRepository {
 		return this.mapToEntity(result.rows[0]);
 	}
 
-	async findById(id: UUID): Promise<Category | null> {
+	async findById(id: string): Promise<Category | null> {
 		const sql = `
 			SELECT * FROM category
 			WHERE id = $1
