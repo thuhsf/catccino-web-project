@@ -1,6 +1,40 @@
 services:
 
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=root
+    networks:
+      - services
+
   menu:
-    container_name: backend
+    container_name: menu
+    build:
+      context: ./menu
+      dockerfile: Dockerfile
+    restart: always
     env_file:
+      - ./menu/.env
+    depends_on:
+      - db
+    networks:
+      - services
+
+  nginx:
+    container_name: nginx
+    build: nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/
+    depends_on:
       - menu
+    networks:
+      - services
+
+networks:
+  services:
+    driver: bridge
