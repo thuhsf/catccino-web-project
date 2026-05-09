@@ -1,73 +1,129 @@
-import { type UUID } from "node:crypto"
+import { randomUUID, type UUID } from "node:crypto";
+
+type ProductProps = {
+	id?: UUID;
+	name: string;
+	description: string;
+	price: number;
+	categoryId: UUID;
+	available?: boolean;
+	imageUrl?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
+};
 
 class Product {
-	private Id: UUID | null = null;
-	private Name: string | undefined = undefined;
-	private Description: string | undefined = undefined;
-	private Price: number | null = null;
-	private CategoryId: UUID | null = null;
-	private Available: boolean | null = null;
-	private ImageUrl: string | undefined = undefined;
-	private CreatedAt: Date | null = null;
-	private UpdatedAt: Date | null = null;
+	private readonly Id: UUID;
+	private Name: string;
+	private Description: string;
+	private Price: number;
+	private CategoryId: UUID;
+	private Available: boolean;
+	private ImageUrl?: string;
+	private CreatedAt: Date;
+	private UpdatedAt: Date;
 
-	get getId() {
+	constructor(props: ProductProps) {
+		this.Id = props.id ?? randomUUID();
+		this.Name = props.name;
+		this.Description = props.description;
+		this.Price = props.price;
+		this.CategoryId = props.categoryId;
+		this.Available = props.available ?? false;
+		this.ImageUrl = props.imageUrl ?? "";
+		this.CreatedAt = props.createdAt ?? new Date();
+		this.UpdatedAt = props.updatedAt ?? new Date();
+
+		this.validate();
+	}
+
+	private validate() {
+		if (this.Name.length < 3) {
+			throw new Error("Invalid product name");
+		}
+
+		if (this.Price <= 0) {
+			throw new Error("Invalid product price");
+		}
+	}
+
+	getId() {
 		return this.Id;
 	}
 
-	get getName() {
+	getName() {
 		return this.Name;
 	}
-	set setName(value: string) {
-		this.Name = value;
-	}
 
-	get getDescription() {
+	getDescription() {
 		return this.Description;
 	}
-	set setDescription(value: string) {
-		this.Description = value;
-	}
 
-	get getPrice() {
+	getPrice() {
 		return this.Price;
 	}
-	set setPrice(value: number) {
-		this.Price = value;
-	}
 
-	get getCategoryId() {
+	getCategoryId() {
 		return this.CategoryId;
 	}
 
-	get getAvailable() {
+	getAvailable() {
 		return this.Available;
 	}
-	set setAvailable(value: boolean) {
-		this.Available = value;
-	}
 
-	get getImageUrl() {
+	getImageUrl() {
 		return this.ImageUrl;
 	}
-	set setImageUrl(value: string) {
-		this.ImageUrl = value;
-	}
 
-	get getCreatedAt() {
+	getCreatedAt() {
 		return this.CreatedAt;
 	}
-	set setCreatedAt(value: Date) {
-		this.CreatedAt = value;
-	}
 
-	get getUpdatedAt() {
+	getUpdatedAt() {
 		return this.UpdatedAt;
 	}
-	set setUpdatedAt(value: Date) {
-		this.UpdatedAt = value;
+
+	rename(value: string) {
+		if (value.length < 3) {
+			throw new Error("Invalid product name");
+		}
+
+		this.Name = value;
+		this.touch();
 	}
 
+	changeDescription(value: string) {
+		this.Description = value;
+		this.touch();
+	}
+
+	changePrice(value: number) {
+		if (value <= 0) {
+			throw new Error("Invalid product price");
+		}
+
+		this.Price = value;
+		this.touch();
+	}
+
+	activate() {
+		this.Available = true;
+		this.touch();
+	}
+
+	deactivate() {
+		this.Available = false;
+		this.touch();
+	}
+
+	changeImage(value: string) {
+		this.ImageUrl = value;
+		this.touch();
+	}
+
+	private touch() {
+		this.UpdatedAt = new Date();
+	}
 }
 
 export default Product;

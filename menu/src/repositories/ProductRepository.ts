@@ -1,0 +1,113 @@
+import Product from "@entities/product/Product.js";
+import type { IProductFactory, IProductRepository } from "./interfaces/IProductRepository.js";
+import { pool } from "@database/pg.js";
+import type { ProductRow } from "./types/ProductRow.js";
+
+class ProductRespository implements IProductRepository {
+	private mapToEntity(row: ProductRow): Product {
+		return new Product({
+			id: row.id,
+			name: row.name,
+			description: row.description,
+			price: Number(row.price),
+			categoryId: row.category_id,
+			available: row.available,
+			imageUrl: row.image_url,
+			createdAt: row.created_at,
+			updatedAt: row.updated_at
+		})
+	}
+
+	async create(data: Product): Promise<Product | null> {
+		const sql = `
+			INSERT INTO product (name, description, price, category_id, available, image_url, created_at, updated_at)
+			VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
+			RETURNING *
+		`
+		const result = await pool.query(sql, [
+			data.getName(),
+			data.getDescription(),
+			data.getPrice(),
+			data.getCategoryId(),
+			data.getAvailable(),
+			data.getImageUrl()
+		])
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async update(data: Product): Promise<Product | null> {
+		const sql = `
+			UPDATE product
+			SET
+			  name = $1,
+			  description = $2,
+		          price = $3,
+			  category_id = $4,
+			  available = $5,
+			  image_url = $6,
+			  updated_at = NOW()
+			WHERE id = $7
+			RETURNING *
+		`;
+
+		const result = await pool.query(sql, [
+			data.getName(),
+			data.getDescription(),
+			data.getPrice(),
+			data.getCategoryId(),
+			data.getAvailable(),
+			data.getImageUrl(),
+			data.getId()
+		])
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return new Product({
+			id: result.rows[0].id,
+			name: result.rows[0].name,
+			description: result.rows[0].description,
+			price: result.rows[0].price,
+			categoryId: result.rows[0].category_id,
+			available: result.rows[0].available,
+			imageUrl: result.rows[0].image_url,
+		})
+	}
+
+	async findByName(name: string): Promise<Product | null> {
+		const sql = `
+			SELECT * FROM product
+			WHERE name = $1
+		`;
+
+		const result = await pool.query(sql, [name]);
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async listAll(): Promise<Product[]> {
+		const sql = `
+			SELECT * FROM product			
+		`;
+
+		const result = await pool.query(sql);
+
+		return result.rows.map((row) => this.mapToEntity(row));
+	}
+}
+
+class ProductFactory implements IProductFactory {
+	createRepository(): IProductRepository {
+		return new ProductRespository();
+	}
+}

@@ -1,6 +1,6 @@
 import type { UUID } from "crypto";
-import type Category from "../../entities/category/Category.js";
-import type { ICategoryRepository } from "../interfaces/ICategoryRepository.js";
+import type Category from "@entities/category/Category.js";
+import type { ICategoryRepository } from "@repositories/interfaces/ICategoryRepository.js";
 
 /* @inMemory just for tests */
 

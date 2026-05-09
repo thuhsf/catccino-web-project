@@ -1,6 +1,7 @@
 import type { UUID } from "node:crypto";
 
 type Product = {
+	id: UUID;
 	name: string;
 	description: string;
 	price: number;

@@ -1,29 +1,46 @@
 import { randomUUID, type UUID } from "node:crypto";
 
-class Category {
-	private Id: UUID = randomUUID();
-	private Name: string = "";
-	private Slug: string = "";
+type CategoryProps = {
+	id: UUID;
+	name: string;
+	slug: string;
+}
 
-	get getId() {
+class Category {
+	private readonly Id: UUID = randomUUID();
+	private Name: string;
+	private Slug: string;
+
+	constructor(props: CategoryProps) {
+		this.Id = props.id;
+		this.Name = props.name;
+		this.Slug = props.slug;
+	}
+
+	getId() {
 		return this.Id;
 	}
 
-	get getName() {
+	getName() {
 		return this.Name;
 	}
 
-	set setName(value: string) {
-		this.Name = value;
-	}
-
-	get getSlug() {
+	getSlug() {
 		return this.Slug;
 	}
 
-	set setSlug(value: string) {
+	rename(value: string) {
+		if (value.length < 3) {
+			throw new Error("Invalid category name");
+		}
+
+		this.Name = value;
+	}
+
+	changeSlug(value: string) {
 		this.Slug = value;
 	}
+
 }
 
 export default Category;

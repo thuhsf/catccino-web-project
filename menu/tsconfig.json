@@ -22,6 +22,18 @@
     "noUncheckedSideEffectImports": true,
 
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    
+    "paths": {
+      "@/*": ["./src"],
+      "@entities/*": ["./src/entities/*"],
+      "@http/*": ["./src/http/*"],
+      "@controllers/*": ["./src/http/controllers/*"],
+      "@repositories/*": ["./src/repositories/*"],
+      "@config/*": ["./src/config/*"],
+      "@database/*": ["./src/database/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
   }
 }
+

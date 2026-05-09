@@ -1,0 +1,88 @@
+import { pool } from "@database/pg.js"
+import Category from "@entities/category/Category.js"
+import type { ICategoryFactory, ICategoryRepository } from "./interfaces/ICategoryRepository.js"
+import type { CategoryRow } from "./types/CategoryRow.js";
+
+class CategoryRepository implements ICategoryRepository {
+	private mapToEntity(row: CategoryRow): Category {
+		return new Category({
+			id: row.id,
+			name: row.name,
+			slug: row.slug
+		});
+	}
+
+	async create(data: Category): Promise<Category | null> {
+		const sql = `
+			INSERT INTO category (name, slug)
+		        VALUES ($1, $2)
+			RETURNING *
+		`;
+
+		const result = await pool.query(sql, [
+			data.getName(),
+			data.getSlug()
+		])
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async update(data: Category): Promise<Category | null> {
+		const sql = `
+			UPDATE category
+			SET
+			  name = $1,
+   			  slug = $2
+			WHERE id = $3
+			RETURNING *
+		`;
+		const result = await pool.query(sql, [
+			data.getName(),
+			data.getSlug(),
+			data.getId()
+		])
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async findByName(name: string): Promise<Category | null> {
+		const sql = `
+			SELECT * FROM category
+			WHERE name = $1
+		`;
+
+		const result = await pool.query(sql, [name]);
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async listAll(): Promise<Category[]> {
+		const sql = `
+			SELECT * FROM category
+		`;
+
+		const result = await pool.query(sql);
+
+		return result.rows.map((row) => this.mapToEntity(row));
+	}
+}
+
+class CategoryFactory implements ICategoryFactory {
+	createRepository(): ICategoryRepository {
+		return new CategoryRepository();
+	}
+}
+
+export { CategoryRepository, CategoryFactory }

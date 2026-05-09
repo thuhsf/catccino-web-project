@@ -1,6 +1,6 @@
 import type { UUID } from "crypto";
-import type { IProductRepository } from "../interfaces/IProductRepository.js";
-import type Product from "../../entities/product/Product.js";
+import type { IProductRepository } from "@repositories/interfaces/IProductRepository.js";
+import type Product from "@entities/product/Product.js";
 
 /* @inMemory just for tests */
 
