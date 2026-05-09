@@ -1,0 +1,6 @@
+services:
+
+  menu:
+    container_name: backend
+    env_file:
+      - menu
