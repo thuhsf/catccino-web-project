@@ -1,9 +1,11 @@
 import type { IProductFactory } from "@repositories/interfaces/IProductRepository.js";
 import CreateProductUseCase from "../../product/CreateProductUseCase.js";
+import type { ICategoryFactory } from "@repositories/interfaces/ICategoryRepository.js";
 
-export function makeCreate(productFactory: IProductFactory) {
-	const factory = productFactory.createRepository();
-	const service = new CreateProductUseCase(factory);
+export function makeCreate(productFactory: IProductFactory, categoryFactory: ICategoryFactory) {
+	const productFact = productFactory.createRepository();
+	const categoryFact = categoryFactory.createRepository();
+	const service = new CreateProductUseCase(productFact, categoryFact);
 
 	return service;
 }
