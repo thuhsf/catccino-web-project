@@ -7,7 +7,7 @@ type Product = {
 	price: number;
 	categoryId: UUID;
 	available: boolean;
-	imageUrl: string;
+	imageUrl?: string;
 	createdAt: Date;
 	updatedAt: Date;
 }

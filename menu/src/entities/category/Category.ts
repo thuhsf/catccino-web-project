@@ -1,7 +1,7 @@
 import { randomUUID, type UUID } from "node:crypto";
 
 type CategoryProps = {
-	id: UUID;
+	id?: UUID;
 	name: string;
 	slug: string;
 }
@@ -12,7 +12,7 @@ class Category {
 	private Slug: string;
 
 	constructor(props: CategoryProps) {
-		this.Id = props.id;
+		this.Id = props.id ?? randomUUID();
 		this.Name = props.name;
 		this.Slug = props.slug;
 	}

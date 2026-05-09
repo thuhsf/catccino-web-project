@@ -19,7 +19,7 @@ class Product {
 	private Price: number;
 	private CategoryId: UUID;
 	private Available: boolean;
-	private ImageUrl?: string;
+	private ImageUrl: string;
 	private CreatedAt: Date;
 	private UpdatedAt: Date;
 
@@ -47,39 +47,39 @@ class Product {
 		}
 	}
 
-	getId() {
+	getId(): UUID {
 		return this.Id;
 	}
 
-	getName() {
+	getName(): string {
 		return this.Name;
 	}
 
-	getDescription() {
+	getDescription(): string {
 		return this.Description;
 	}
 
-	getPrice() {
+	getPrice(): number {
 		return this.Price;
 	}
 
-	getCategoryId() {
+	getCategoryId(): UUID {
 		return this.CategoryId;
 	}
 
-	getAvailable() {
+	getAvailable(): boolean {
 		return this.Available;
 	}
 
-	getImageUrl() {
+	getImageUrl(): string {
 		return this.ImageUrl;
 	}
 
-	getCreatedAt() {
+	getCreatedAt(): Date {
 		return this.CreatedAt;
 	}
 
-	getUpdatedAt() {
+	getUpdatedAt(): Date {
 		return this.UpdatedAt;
 	}
 

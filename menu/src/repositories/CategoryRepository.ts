@@ -2,6 +2,7 @@ import { pool } from "@database/pg.js"
 import Category from "@entities/category/Category.js"
 import type { ICategoryFactory, ICategoryRepository } from "./interfaces/ICategoryRepository.js"
 import type { CategoryRow } from "./types/CategoryRow.js";
+import type { UUID } from "node:crypto";
 
 class CategoryRepository implements ICategoryRepository {
 	private mapToEntity(row: CategoryRow): Category {
@@ -60,6 +61,21 @@ class CategoryRepository implements ICategoryRepository {
 		`;
 
 		const result = await pool.query(sql, [name]);
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async findById(id: UUID): Promise<Category | null> {
+		const sql = `
+			SELECT * FROM category
+			WHERE id = $1
+		`;
+
+		const result = await pool.query(sql, [id]);
 
 		if (!result.rows.length) {
 			return null;
