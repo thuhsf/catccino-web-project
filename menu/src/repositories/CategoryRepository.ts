@@ -2,7 +2,6 @@ import { pool } from "@database/pg.js"
 import Category from "@entities/category/Category.js"
 import type { ICategoryFactory, ICategoryRepository } from "./interfaces/ICategoryRepository.js"
 import type { CategoryRow } from "./types/CategoryRow.js";
-import type { UUID } from "node:crypto";
 
 class CategoryRepository implements ICategoryRepository {
 	private mapToEntity(row: CategoryRow): Category {
@@ -46,6 +45,22 @@ class CategoryRepository implements ICategoryRepository {
 			data.getSlug(),
 			data.getId()
 		])
+
+		if (!result.rows.length) {
+			return null;
+		}
+
+		return this.mapToEntity(result.rows[0]);
+	}
+
+	async delete(id: string): Promise<Category | null> {
+		const sql = `
+			DELETE FROM category
+			WHERE id = $1
+			RETURNING *
+		`;
+
+		const result = await pool.query(sql, [id]);
 
 		if (!result.rows.length) {
 			return null;

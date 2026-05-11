@@ -29,6 +29,7 @@
       "@entities/*": ["./src/entities/*"],
       "@http/*": ["./src/http/*"],
       "@controllers/*": ["./src/http/controllers/*"],
+      "@use-cases/*": ["./src/use-cases/*"],
       "@repositories/*": ["./src/repositories/*"],
       "@config/*": ["./src/config/*"],
       "@database/*": ["./src/database/*"],
