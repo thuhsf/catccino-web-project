@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { upload } from "@config/multerConfig.js";
+// import { upload } from "@config/multerConfig.js";
 import { RegisterProductController } from "../register.controller.js";
 import { UpdateProductController } from "../update.controller.js";
 import { ListProductControlelr } from "../list.controller.js";
