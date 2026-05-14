@@ -7,7 +7,7 @@ type TypeDbEnvConfig = {
 	password: string;
 	database: string;
 	port: number;
-}
+};
 
 export const dbEnvConfig: TypeDbEnvConfig = {
 	host: process.env.DB_HOST as string,

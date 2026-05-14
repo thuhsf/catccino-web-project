@@ -38,90 +38,90 @@ class Product {
 	private validate() {
 		if (this.Name.length < 3) {
 			throw new Error("Invalid product name");
-		}
+		};
 
 		if (this.Price <= 0) {
 			throw new Error("Invalid product price");
-		}
-	}
+		};
+	};
 
 	getId(): string {
 		return this.Id;
-	}
+	};
 
 	getName(): string {
 		return this.Name;
-	}
+	};
 
 	getDescription(): string {
 		return this.Description;
-	}
+	};
 
 	getPrice(): number {
 		return this.Price;
-	}
+	};
 
 	getCategoryId(): string {
 		return this.CategoryId;
-	}
+	};
 
 	getAvailable(): boolean {
 		return this.Available;
-	}
+	};
 
 	getImageUrl(): string {
 		return this.ImageUrl;
-	}
+	};
 
 	getCreatedAt(): Date {
 		return this.CreatedAt;
-	}
+	};
 
 	getUpdatedAt(): Date {
 		return this.UpdatedAt;
-	}
+	};
 
 	rename(value: string) {
 		if (value.length < 3) {
 			throw new Error("Invalid product name");
-		}
+		};
 
 		this.Name = value;
 		this.touch();
-	}
+	};
 
 	changeDescription(value: string) {
 		this.Description = value;
 		this.touch();
-	}
+	};
 
 	changePrice(value: number) {
 		if (value <= 0) {
 			throw new Error("Invalid product price");
-		}
+		};
 
 		this.Price = value;
 		this.touch();
-	}
+	};
 
 	activate() {
 		this.Available = true;
 		this.touch();
-	}
+	};
 
 	deactivate() {
 		this.Available = false;
 		this.touch();
-	}
+	};
 
 	changeImage(value: string) {
 		this.ImageUrl = value;
 		this.touch();
-	}
+	};
 
 	private touch() {
 		this.UpdatedAt = new Date();
-	}
-}
+	};
+};
 
 export default Product;

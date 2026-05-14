@@ -11,8 +11,8 @@ async function UpdateCategoryController(
         const id = req.params.id as string | undefined;
 
         if (id == undefined) {
-            throw new Error("Id não reconhecido ou incompleto")
-        }
+            throw new Error("Id não reconhecido ou incompleto");
+        };
 
         const data = categorySchema.parse(req.body);
 
@@ -32,7 +32,7 @@ async function UpdateCategoryController(
         return res.status(400).json({
             error: err.message,
         });
-    }
-}
+    };
+};
 
-export { UpdateCategoryController }
+export { UpdateCategoryController };

@@ -2,7 +2,7 @@ import type { ArrCategoryResponseDTO } from "@entities/category/CategoryResponse
 import type { ICategoryRepository } from "@repositories/interfaces/ICategoryRepository.js";
 
 class ListCategoryUseCase {
-    constructor(private readonly repositoy: ICategoryRepository) { }
+    constructor(private readonly repositoy: ICategoryRepository) { };
 
     async execute(): Promise<ArrCategoryResponseDTO> {
         const categories = await this.repositoy.listAll();
@@ -15,7 +15,7 @@ class ListCategoryUseCase {
             }))
         };
 
-    }
-}
+    };
+};
 
-export { ListCategoryUseCase }
+export { ListCategoryUseCase };

@@ -9,7 +9,7 @@ async function DeleteCategoryController(req: Request, res: Response) {
 
         if (id == undefined) {
             throw new Error("Id não reconhecido ou incompleto")
-        }
+        };
 
         const factory = new CategoryFactory();
         const deleteCategory = makeDelete(factory);
@@ -25,8 +25,8 @@ async function DeleteCategoryController(req: Request, res: Response) {
         return res.status(400).json({
             error: err.message,
         });
-    }
-}
+    };
+};
 
 
-export { DeleteCategoryController }
+export { DeleteCategoryController };

@@ -8,8 +8,8 @@ type Product = {
 	imageUrl?: string | undefined;
 	createdAt: Date;
 	updatedAt: Date;
-}
+};
 
 export interface ProductResponseDTO {
 	product: Product;
-}
+};

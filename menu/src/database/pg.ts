@@ -1,7 +1,7 @@
-import { dbEnvConfig } from "@config/dbConfig.js"
-import pg from "pg"
+import { dbEnvConfig } from "@config/dbConfig.js";
+import pg from "pg";
 
-const { Pool } = pg
+const { Pool } = pg;
 
 export const pool = new Pool({
 	host: dbEnvConfig.host,
@@ -9,4 +9,4 @@ export const pool = new Pool({
 	password: dbEnvConfig.password,
 	database: dbEnvConfig.database,
 	port: dbEnvConfig.port
-})
+});

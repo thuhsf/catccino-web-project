@@ -1,0 +1,61 @@
+import type { ProductRequestDTO } from "@entities/product/ProductRequestDTO.js";
+import type { ProductResponseDTO } from "@entities/product/ProductResponseDTO.js";
+import type { IProductRepository } from "@repositories/interfaces/IProductRepository.js";
+
+class UpdateCategoryUseCase {
+
+    constructor(private readonly repository: IProductRepository) { };
+
+    async execute(data: ProductRequestDTO): Promise<ProductResponseDTO> {
+
+        const product = await this.repository.findByName(data.product.name);
+
+        if (!product) {
+            throw new Error("Produto não encontrado");
+        };
+
+        if (data.product.available == true) {
+            product.activate();
+        } else if (data.product.available == false) {
+            product.deactivate();
+        };
+
+        if (data.product.name !== undefined) {
+            product.rename(data.product.name);
+        };
+
+        if (data.product.description !== undefined) {
+            product.changeDescription(data.product.description);
+        };
+
+        if (data.product.price !== undefined) {
+            product.changePrice(data.product.price);
+        };
+
+        if (data.product.imageUrl) {
+            product.changeImage(data.product.imageUrl);
+        };
+
+        const updatedProduct = await this.repository.update(product);
+
+        if (!updatedProduct) {
+            throw new Error("Erro ao atualizar os dados de produto");
+        };
+
+        return {
+            product: {
+                id: updatedProduct.getId(),
+                categoryId: updatedProduct.getCategoryId(),
+                available: updatedProduct.getAvailable(),
+                name: updatedProduct.getName(),
+                description: updatedProduct.getName(),
+                price: updatedProduct.getPrice(),
+                imageUrl: updatedProduct.getImageUrl(),
+                createdAt: updatedProduct.getCreatedAt(),
+                updatedAt: updatedProduct.getUpdatedAt()
+            }
+        };
+    };
+};
+
+export { UpdateCategoryUseCase };

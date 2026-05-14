@@ -4,7 +4,7 @@ import type { CategoryResponseDTO } from "@entities/category/CategoryResponseDTO
 import type { ICategoryRepository } from "@repositories/interfaces/ICategoryRepository.js";
 
 class CreateCategoryUseCase {
-	constructor(private readonly repository: ICategoryRepository) { }
+	constructor(private readonly repository: ICategoryRepository) { };
 
 	async execute(data: CategoryRequestDTO): Promise<CategoryResponseDTO> {
 
@@ -12,7 +12,7 @@ class CreateCategoryUseCase {
 			throw new Error(
 				"Nome e slug são obrigatórios"
 			);
-		}
+		};
 
 		const findCategory = await this.repository.findByName(data.name);
 
@@ -20,7 +20,7 @@ class CreateCategoryUseCase {
 			throw new Error(
 				"Categoria já existe"
 			);
-		}
+		};
 
 		const category = new Category({
 			name: data.name,
@@ -33,14 +33,14 @@ class CreateCategoryUseCase {
 			throw new Error(
 				"Falha ao criar categoria"
 			);
-		}
+		};
 
 		return {
 			id: createCategory.getId(),
 			name: createCategory.getName(),
 			slug: createCategory.getSlug(),
 		};
-	}
-}
+	};
+};
 
-export default CreateCategoryUseCase
+export default CreateCategoryUseCase;

@@ -16,13 +16,13 @@ class CreateProductUseCase {
 
 		if (findProduct) {
 			throw new Error("Produto já existe");
-		}
+		};
 
 		const findCategory = await this.categoryRepository.findById(data.product.categoryId);
 
 		if (!findCategory) {
 			throw new Error("Categoria não encontrada");
-		}
+		};
 
 		const newProduct = new Product({
 			name: data.product.name,
@@ -31,13 +31,13 @@ class CreateProductUseCase {
 			categoryId: data.product.categoryId,
 			available: data.product.available ?? false,
 			imageUrl: data.product.imageUrl ?? ""
-		})
+		});
 
 		const createdProduct = await this.productRepository.create(newProduct);
 
 		if (!createdProduct) {
 			throw new Error("Falha ao criar produto");
-		}
+		};
 
 		return {
 			product: {
@@ -51,8 +51,8 @@ class CreateProductUseCase {
 				createdAt: createdProduct.getCreatedAt(),
 				updatedAt: createdProduct.getUpdatedAt()
 			}
-		}
-	}
-}
+		};
+	};
+};
 
 export default CreateProductUseCase;

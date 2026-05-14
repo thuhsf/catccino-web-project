@@ -7,9 +7,8 @@ export interface ICategoryRepository {
 	findByName: (name: string) => Promise<Category | null>;
 	findById: (id: string) => Promise<Category | null>
 	delete: (id: string) => Promise<Category | null>
-}
-
+};
 
 export interface ICategoryFactory {
 	createRepository(): ICategoryRepository;
-}
+};

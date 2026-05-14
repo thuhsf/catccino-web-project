@@ -1,5 +1,5 @@
-import type { Request, Response } from "express"
-import categorySchema from "@entities/category/schemas/CategorySchema.js"
+import type { Request, Response } from "express";
+import categorySchema from "@entities/category/schemas/CategorySchema.js";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
 import { makeCreate } from "@use-cases/factories/category/makeCreate.js";
 
@@ -28,8 +28,8 @@ async function RegisterCategoryController(req: Request, res: Response) {
 				message: "Erro ao criar categoria",
 				status: 500
 			});
-	}
-}
+	};
+};
 
 
-export { RegisterCategoryController }
+export { RegisterCategoryController };

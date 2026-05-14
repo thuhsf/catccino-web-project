@@ -7,8 +7,8 @@ async function FindCategoryController(req: Request, res: Response) {
         const id = req.params.id as string | undefined;
 
         if (id == undefined) {
-            throw new Error("Id não reconhecido ou incompleto")
-        }
+            throw new Error("Id não reconhecido ou incompleto");
+        };
 
         const factory = new CategoryFactory();
         const find = makeFind(factory);
@@ -24,7 +24,7 @@ async function FindCategoryController(req: Request, res: Response) {
         return res.status(400).json({
             error: err.message,
         });
-    }
-}
+    };
+};
 
-export { FindCategoryController }
+export { FindCategoryController };

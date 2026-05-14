@@ -1,10 +1,9 @@
-import type { CategoryRequestDTO } from "@entities/category/CategoryRequestDTO.js";
 import type { CategoryResponseDTO } from "@entities/category/CategoryResponseDTO.js";
 import type { ICategoryRepository } from "@repositories/interfaces/ICategoryRepository.js";
 
 class DeleteCategoryUseCase {
 
-    constructor(private readonly repository: ICategoryRepository) { }
+    constructor(private readonly repository: ICategoryRepository) { };
 
     async execute(id: string): Promise<CategoryResponseDTO> {
         if (!id) {
@@ -15,20 +14,20 @@ class DeleteCategoryUseCase {
 
         if (!category) {
             throw new Error("Essa categoria não existe");
-        }
+        };
 
         const deleteCategory = await this.repository.delete(id);
 
         if (!deleteCategory) {
-            throw new Error("Impossível deletar essa categoria")
-        }
+            throw new Error("Impossível deletar essa categoria");
+        };
 
         return {
             id: deleteCategory.getId(),
             name: deleteCategory.getName(),
             slug: deleteCategory.getSlug()
         }
-    }
-}
+    };
+};
 
-export { DeleteCategoryUseCase }
+export { DeleteCategoryUseCase };

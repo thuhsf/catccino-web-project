@@ -1,6 +1,6 @@
-import { pool } from "@database/pg.js"
-import Category from "@entities/category/Category.js"
-import type { ICategoryFactory, ICategoryRepository } from "./interfaces/ICategoryRepository.js"
+import { pool } from "@database/pg.js";
+import Category from "@entities/category/Category.js";
+import type { ICategoryFactory, ICategoryRepository } from "./interfaces/ICategoryRepository.js";
 import type { CategoryRow } from "./types/CategoryRow.js";
 
 class CategoryRepository implements ICategoryRepository {
@@ -10,7 +10,7 @@ class CategoryRepository implements ICategoryRepository {
 			name: row.name,
 			slug: row.slug
 		});
-	}
+	};
 
 	async create(data: Category): Promise<Category | null> {
 		const sql = `
@@ -22,14 +22,14 @@ class CategoryRepository implements ICategoryRepository {
 		const result = await pool.query(sql, [
 			data.getName(),
 			data.getSlug()
-		])
+		]);
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return this.mapToEntity(result.rows[0]);
-	}
+	};
 
 	async update(data: Category): Promise<Category | null> {
 		const sql = `
@@ -44,11 +44,11 @@ class CategoryRepository implements ICategoryRepository {
 			data.getName(),
 			data.getSlug(),
 			data.getId()
-		])
+		]);
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return this.mapToEntity(result.rows[0]);
 	}
@@ -64,10 +64,10 @@ class CategoryRepository implements ICategoryRepository {
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return this.mapToEntity(result.rows[0]);
-	}
+	};
 
 	async findByName(name: string): Promise<Category | null> {
 		const sql = `
@@ -82,7 +82,7 @@ class CategoryRepository implements ICategoryRepository {
 		}
 
 		return this.mapToEntity(result.rows[0]);
-	}
+	};
 
 	async findById(id: string): Promise<Category | null> {
 		const sql = `
@@ -94,10 +94,10 @@ class CategoryRepository implements ICategoryRepository {
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return this.mapToEntity(result.rows[0]);
-	}
+	};
 
 	async listAll(): Promise<Category[]> {
 		const sql = `
@@ -107,13 +107,13 @@ class CategoryRepository implements ICategoryRepository {
 		const result = await pool.query(sql);
 
 		return result.rows.map((row) => this.mapToEntity(row));
-	}
-}
+	};
+};
 
 class CategoryFactory implements ICategoryFactory {
 	createRepository(): ICategoryRepository {
 		return new CategoryRepository();
-	}
-}
+	};
+};
 
-export { CategoryRepository, CategoryFactory }
+export { CategoryRepository, CategoryFactory };

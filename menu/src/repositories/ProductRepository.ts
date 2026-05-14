@@ -15,15 +15,15 @@ class ProductRespository implements IProductRepository {
 			imageUrl: row.image_url,
 			createdAt: row.created_at,
 			updatedAt: row.updated_at
-		})
-	}
+		});
+	};
 
 	async create(data: Product): Promise<Product | null> {
 		const sql = `
 			INSERT INTO product (name, description, price, category_id, available, image_url, created_at, updated_at)
 			VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
 			RETURNING *
-		`
+		`;
 		const result = await pool.query(sql, [
 			data.getName(),
 			data.getDescription(),
@@ -31,11 +31,11 @@ class ProductRespository implements IProductRepository {
 			data.getCategoryId(),
 			data.getAvailable(),
 			data.getImageUrl()
-		])
+		]);
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return this.mapToEntity(result.rows[0]);
 	}
@@ -63,11 +63,11 @@ class ProductRespository implements IProductRepository {
 			data.getAvailable(),
 			data.getImageUrl(),
 			data.getId()
-		])
+		]);
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return new Product({
 			id: result.rows[0].id,
@@ -77,8 +77,8 @@ class ProductRespository implements IProductRepository {
 			categoryId: result.rows[0].category_id,
 			available: result.rows[0].available,
 			imageUrl: result.rows[0].image_url,
-		})
-	}
+		});
+	};
 
 	async findByName(name: string): Promise<Product | null> {
 		const sql = `
@@ -90,10 +90,10 @@ class ProductRespository implements IProductRepository {
 
 		if (!result.rows.length) {
 			return null;
-		}
+		};
 
 		return this.mapToEntity(result.rows[0]);
-	}
+	};
 
 	async listAll(): Promise<Product[]> {
 		const sql = `
@@ -103,13 +103,13 @@ class ProductRespository implements IProductRepository {
 		const result = await pool.query(sql);
 
 		return result.rows.map((row) => this.mapToEntity(row));
-	}
-}
+	};
+};
 
 class ProductFactory implements IProductFactory {
 	createRepository(): IProductRepository {
 		return new ProductRespository();
-	}
-}
+	};
+};
 
-export { ProductFactory, ProductRespository }
+export { ProductFactory, ProductRespository };
