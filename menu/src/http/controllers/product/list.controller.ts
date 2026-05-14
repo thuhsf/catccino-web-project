@@ -13,7 +13,7 @@ async function ListProductControlelr(req: Request, res: Response) {
 		return res.status(200).json(product);
 
 	} catch (err: Error | any) {
-		if (err) throw new Error();
+		console.error(err);
 
 		res
 			.status(400)
