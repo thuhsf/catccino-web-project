@@ -5,6 +5,7 @@ export interface IProductRepository {
 	update: (data: Product) => Promise<Product | null>;
 	listAll: () => Promise<Product[]>;
 	findByName: (name: string) => Promise<Product | null>;
+	findById: (id: string) => Promise<Product | null>;
 };
 
 export interface IProductFactory {

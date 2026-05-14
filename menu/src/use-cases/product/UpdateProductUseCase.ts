@@ -2,13 +2,18 @@ import type { ProductRequestDTO } from "@entities/product/ProductRequestDTO.js";
 import type { ProductResponseDTO } from "@entities/product/ProductResponseDTO.js";
 import type { IProductRepository } from "@repositories/interfaces/IProductRepository.js";
 
-class UpcateProductUseCase {
+class UpdateProductUseCase {
 
     constructor(private readonly repository: IProductRepository) { };
 
     async execute(data: ProductRequestDTO): Promise<ProductResponseDTO> {
 
-        const product = await this.repository.findByName(data.product.name);
+
+        if (!data.product.id) {
+            throw new Error("Id é obrigatório");
+        };
+
+        const product = await this.repository.findById(data.product.id);
 
         if (!product) {
             throw new Error("Produto não encontrado");
@@ -58,4 +63,4 @@ class UpcateProductUseCase {
     };
 };
 
-export { UpcateProductUseCase };
+export { UpdateProductUseCase };

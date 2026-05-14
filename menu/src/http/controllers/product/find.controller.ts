@@ -1,18 +1,22 @@
-import productSchema from "@entities/product/schemas/ProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { makeFind } from "@use-cases/factories/product/makeFind.js";
 import type { Request, Response } from "express";
 
 async function FindProductController(req: Request, res: Response) {
     try {
-        const { name } = productSchema.parse(req.body);
+
+        const id = req.params.id as string | undefined;
+
+        if (id == undefined) {
+            throw new Error("Id não reconhecido ou incompleto");
+        };
 
         const factory = new ProductFactory();
         const find = makeFind(factory);
 
-        const product = await find.execute(name);
+        const product = await find.execute(id);
 
-        return res.status(200).json(product);
+        return res.status(200).json({ ...product });
 
     } catch (err) {
         console.error(err);

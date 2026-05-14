@@ -24,7 +24,9 @@ async function UpdateCategoryController(
             ...data,
         });
 
-        return res.status(200).json(category);
+        return res.status(200).json({
+            category: { ...category }
+        });
 
     } catch (err: any) {
         console.error(err);

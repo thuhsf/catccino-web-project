@@ -10,7 +10,9 @@ async function ListCategoryController(req: Request, res: Response) {
 
         const category = await list.execute();
 
-        return res.status(200).json(category);
+        return res.status(200).json({
+            category: { ...category }
+        });
 
 
     } catch (err: Error | any) {

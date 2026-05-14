@@ -104,6 +104,21 @@ class ProductRepository implements IProductRepository {
 
 		return result.rows.map((row) => this.mapToEntity(row));
 	};
+
+	async findById(id: string): Promise<Product | null> {
+		const sql = `
+			SELECT * FROM products
+			WHERE id = $1
+		`;
+
+		const result = await pool.query(sql, [id]);
+
+		if (!result.rows.length) {
+			return null;
+		};
+
+		return this.mapToEntity(result.rows[0]);
+	};
 };
 
 class ProductFactory implements IProductFactory {

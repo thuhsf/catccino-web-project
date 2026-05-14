@@ -9,11 +9,11 @@ const router: IRouter = Router();
 
 router.get("/products", ListProductControlelr);
 
-router.get("/products/find", FindProductController);
+router.get("/products/:id", FindProductController);
 
 router.post("/products", RegisterProductController);
 
-router.patch("/products", UpdateProductController);
+router.patch("/products/:id", UpdateProductController);
 
 
 export default router;

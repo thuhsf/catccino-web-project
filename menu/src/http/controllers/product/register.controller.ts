@@ -23,7 +23,7 @@ async function RegisterProductController(req: Request, res: Response) {
 			.json({
 				message: "Produto criado com sucesso",
 				status: 201,
-				product
+				...product
 			});
 
 

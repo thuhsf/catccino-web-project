@@ -15,7 +15,9 @@ async function FindCategoryController(req: Request, res: Response) {
 
         const category = await find.execute(id);
 
-        return res.status(200).json(category);
+        return res.status(200).json({
+            category: { ...category }
+        });
 
 
     } catch (err: Error | any) {

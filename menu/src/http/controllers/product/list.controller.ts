@@ -10,7 +10,7 @@ async function ListProductControlelr(req: Request, res: Response) {
 
 		const product = await list.execute();
 
-		return res.status(200).json(product);
+		return res.status(200).json({ ...product });
 
 	} catch (err: Error | any) {
 		console.error(err);

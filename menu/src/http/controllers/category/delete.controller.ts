@@ -16,7 +16,9 @@ async function DeleteCategoryController(req: Request, res: Response) {
 
         const category = await deleteCategory.execute(id);
 
-        return res.status(200).json(category);
+        return res.status(200).json({
+            category: { ...category }
+        });
 
 
     } catch (err: Error | any) {

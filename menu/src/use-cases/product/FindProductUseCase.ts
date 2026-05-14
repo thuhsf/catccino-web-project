@@ -4,8 +4,8 @@ import type { IProductRepository } from "@repositories/interfaces/IProductReposi
 class FindProductUseCase {
     constructor(private readonly repository: IProductRepository) { };
 
-    async execute(name: string): Promise<ProductResponseDTO> {
-        const product = await this.repository.findByName(name);
+    async execute(id: string): Promise<ProductResponseDTO> {
+        const product = await this.repository.findById(id);
 
         if (!product) {
             throw new Error("Esse produto não existe");

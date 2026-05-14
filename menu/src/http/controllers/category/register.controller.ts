@@ -17,7 +17,7 @@ async function RegisterCategoryController(req: Request, res: Response) {
 			.json({
 				message: "Categoria criada com sucesso",
 				status: 201,
-				category
+				category: { ...category }
 			});
 
 	} catch (err: Error | any) {
