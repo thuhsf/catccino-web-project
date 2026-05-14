@@ -3,18 +3,19 @@ import cors from "cors";
 
 import CategoryRoutes from "@controllers/category/routes/index.js";
 import ProductRoutes from "@controllers/product/routes/index.js";
+import { serverConfig } from "@config/serverConfig.js";
 
 const app: Express = express();
 
 app.use(cors({
-	origin: ["http://localhost:3000"],
-	methods: ["GET", "POST", "PATCH", "PUT", "DELETE"]
+	origin: serverConfig.cors.origin,
+	methods: serverConfig.cors.methods
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/v1", CategoryRoutes);
-app.use("/api/v1", ProductRoutes);
+app.use(serverConfig.routes.prefix, CategoryRoutes);
+app.use(serverConfig.routes.prefix, ProductRoutes);
 
 app.use((req, res) => {
 	res.status(404).send("Not Found");
