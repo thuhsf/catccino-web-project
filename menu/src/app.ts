@@ -7,16 +7,14 @@ import ProductRoutes from "@controllers/product/routes/index.js";
 const app: Express = express();
 
 app.use(cors({
-	origin: ["*"],
+	origin: ["http://localhost:3000"],
 	methods: ["GET", "POST", "PATCH", "PUT", "DELETE"]
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
 app.use("/api/v1", CategoryRoutes);
 app.use("/api/v1", ProductRoutes);
-
 
 app.get("*", (req, res) => {
 	res.status(404).send("Not Found");

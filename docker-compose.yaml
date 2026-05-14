@@ -1,53 +1,65 @@
 services:
 
-  redis:
-    image: redis:alpine
-    container_name: redis-db
-    ports:
-      - 6379:6379
-    restart: unless-stopped
-    networks:
-      - services
-
+#  redis:
+#    image: redis:alpine
+#    container_name: redis-db
+#    networks:
+#      - services
+#    ports:
+#      - 6379:6379
+#    restart: unless-stopped
 
   db:
     image: postgres:16
-    container_name: postgres-db
-    restart: always
+    container_name: postgres_db
     shm_size: 128mb
     environment:
-      - POSTGRES_PASSWORD=root
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: menu
+    ports:
+      - "5432:5432"
+#    networks:
+#      - services
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - services
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
 
   menu:
     container_name: menu
     build:
       context: ./menu
       dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+#    networks:
+#      - services
     restart: always
     env_file:
       - ./menu/.env
     depends_on:
-      - db
-    networks:
-      - services
+      db: 
+        condition: service_healthy
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    build: nginx
-    ports:
-      - 80:80
-    volumes:
-      - ./nginx:/etc/nginx/
-    depends_on:
-      - menu
-    networks:
-      - services
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx
+#    build: nginx
+#    ports:
+#      - 80:80
+#    volumes:
+#      - ./nginx:/etc/nginx/
+#    depends_on:
+#      - menu
+#    networks:
+#      - services
 
-networks:
-  services:
-    driver: bridge
+#networks:
+#  services:
+#    driver: bridge
