@@ -11,9 +11,9 @@ router.get("/products", ListProductControlelr);
 
 router.get("/products/find", FindProductController);
 
-router.post("/products", upload.single("product_image"), RegisterProductController);
+router.post("/products", RegisterProductController);
 
-router.patch("/products", upload.single("product_image"), UpdateProductController);
+router.patch("/products", UpdateProductController);
 
 
 export default router;

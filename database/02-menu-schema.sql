@@ -1,4 +1,4 @@
-\connect menu;
+\connect menu_db;
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 

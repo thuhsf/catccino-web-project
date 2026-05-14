@@ -1,1 +1,1 @@
-CREATE DATABASE menu;
+CREATE DATABASE menu_db;

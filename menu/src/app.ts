@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/v1", CategoryRoutes);
 app.use("/api/v1", ProductRoutes);
 
-app.get("*", (req, res) => {
+app.use((req, res) => {
 	res.status(404).send("Not Found");
 });
 

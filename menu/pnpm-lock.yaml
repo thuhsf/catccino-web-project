@@ -48,9 +48,6 @@ importers:
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@25.6.2)(typescript@6.0.3)
-      tsc:
-        specifier: ^2.0.4
-        version: 2.0.4
       tsc-alias:
         specifier: ^1.8.17
         version: 1.8.17
@@ -1250,10 +1247,6 @@ packages:
     engines: {node: '>=16.20.2'}
     hasBin: true
 
-  tsc@2.0.4:
-    resolution: {integrity: sha512-fzoSieZI5KKJVBYGvwbVZs/J5za84f2lSTLPYf6AGiIf43tZ3GNrI1QzTLcjtyDDP4aLxd46RTZq1nQxe7+k5Q==}
-    hasBin: true
-
   tsconfig@7.0.0:
     resolution: {integrity: sha512-vZXmzPrL+EmC4T/4rVlT2jNVMWCi/O4DIiSj3UHg1OE5kCKbk4mfrXc6dZksLgRM/TZlKnousKH9bbTazUWRRw==}
 
@@ -2422,8 +2415,6 @@ snapshots:
       mylas: 2.1.14
       normalize-path: 3.0.0
       plimit-lit: 1.6.1
-
-  tsc@2.0.4: {}
 
   tsconfig@7.0.0:
     dependencies:

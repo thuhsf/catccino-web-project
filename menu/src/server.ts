@@ -1,8 +1,8 @@
 import http from "node:http";
-import "@config/redisClient.js";
 import { waitForDb } from "@utils/wait-for-db.js";
+import { AppServer } from "./app.js";
 
-const server = http.createServer();
+const server = http.createServer(AppServer);
 
 const PORT = process.env.PORT || 4000;
 

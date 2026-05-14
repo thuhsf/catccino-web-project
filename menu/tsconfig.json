@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "baseUrl": ".",
+    "rootDir": "./src",
     "outDir": "dist",
 
     "module": "NodeNext",
@@ -34,7 +35,13 @@
       "@config/*": ["./src/config/*"],
       "@database/*": ["./src/database/*"],
       "@utils/*": ["./src/utils/*"]
-    }
-  }
+    },
+
+    "ignoreDeprecations": "6.0"
+  },
+  "exclude": [
+    "dist",
+    "src/repositories/memory"
+  ]
 }
 

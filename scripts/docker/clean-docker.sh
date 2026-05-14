@@ -7,6 +7,10 @@ echo "  - Volumes"
 echo "  - Networks"
 echo "  - Cache de build"
 echo ""
+echo "  Obs: Se estiver executando após ter finalizado a ultima execução"
+echo "       cancele esse script com Ctrl-C e depois execute os comandos:"
+echo "       'docker compose down' -v e depois 'docker compose up --build'"
+echo ""
 
 read -p "Tem certeza? (y/N): " confirm
 
