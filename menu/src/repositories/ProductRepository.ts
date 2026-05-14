@@ -3,7 +3,7 @@ import type { IProductFactory, IProductRepository } from "./interfaces/IProductR
 import { pool } from "@database/pg.js";
 import type { ProductRow } from "./types/ProductRow.js";
 
-class ProductRespository implements IProductRepository {
+class ProductRepository implements IProductRepository {
 	private mapToEntity(row: ProductRow): Product {
 		return new Product({
 			id: row.id,
@@ -20,7 +20,7 @@ class ProductRespository implements IProductRepository {
 
 	async create(data: Product): Promise<Product | null> {
 		const sql = `
-			INSERT INTO product (name, description, price, category_id, available, image_url, created_at, updated_at)
+			INSERT INTO products (name, description, price, category_id, available, image_url, created_at, updated_at)
 			VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
 			RETURNING *
 		`;
@@ -42,7 +42,7 @@ class ProductRespository implements IProductRepository {
 
 	async update(data: Product): Promise<Product | null> {
 		const sql = `
-			UPDATE product
+			UPDATE products
 			SET
 			  name = $1,
 			  description = $2,
@@ -73,7 +73,7 @@ class ProductRespository implements IProductRepository {
 			id: result.rows[0].id,
 			name: result.rows[0].name,
 			description: result.rows[0].description,
-			price: result.rows[0].price,
+			price: Number(result.rows[0].price),
 			categoryId: result.rows[0].category_id,
 			available: result.rows[0].available,
 			imageUrl: result.rows[0].image_url,
@@ -82,7 +82,7 @@ class ProductRespository implements IProductRepository {
 
 	async findByName(name: string): Promise<Product | null> {
 		const sql = `
-			SELECT * FROM product
+			SELECT * FROM products
 			WHERE name = $1
 		`;
 
@@ -97,7 +97,7 @@ class ProductRespository implements IProductRepository {
 
 	async listAll(): Promise<Product[]> {
 		const sql = `
-			SELECT * FROM product			
+			SELECT * FROM products
 		`;
 
 		const result = await pool.query(sql);
@@ -108,8 +108,8 @@ class ProductRespository implements IProductRepository {
 
 class ProductFactory implements IProductFactory {
 	createRepository(): IProductRepository {
-		return new ProductRespository();
+		return new ProductRepository();
 	};
 };
 
-export { ProductFactory, ProductRespository };
+export { ProductFactory, ProductRepository };

@@ -14,7 +14,7 @@ class CategoryRepository implements ICategoryRepository {
 
 	async create(data: Category): Promise<Category | null> {
 		const sql = `
-			INSERT INTO category (name, slug)
+			INSERT INTO categories (name, slug)
 		        VALUES ($1, $2)
 			RETURNING *
 		`;
@@ -33,7 +33,7 @@ class CategoryRepository implements ICategoryRepository {
 
 	async update(data: Category): Promise<Category | null> {
 		const sql = `
-			UPDATE category
+			UPDATE categories
 			SET
 			  name = $1,
    			  slug = $2
@@ -55,7 +55,7 @@ class CategoryRepository implements ICategoryRepository {
 
 	async delete(id: string): Promise<Category | null> {
 		const sql = `
-			DELETE FROM category
+			DELETE FROM categories
 			WHERE id = $1
 			RETURNING *
 		`;
@@ -71,7 +71,7 @@ class CategoryRepository implements ICategoryRepository {
 
 	async findByName(name: string): Promise<Category | null> {
 		const sql = `
-			SELECT * FROM category
+			SELECT * FROM categories
 			WHERE name = $1
 		`;
 
@@ -86,7 +86,7 @@ class CategoryRepository implements ICategoryRepository {
 
 	async findById(id: string): Promise<Category | null> {
 		const sql = `
-			SELECT * FROM category
+			SELECT * FROM categories
 			WHERE id = $1
 		`;
 
@@ -101,7 +101,7 @@ class CategoryRepository implements ICategoryRepository {
 
 	async listAll(): Promise<Category[]> {
 		const sql = `
-			SELECT * FROM category
+			SELECT * FROM categories
 		`;
 
 		const result = await pool.query(sql);
