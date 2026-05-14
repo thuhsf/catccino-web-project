@@ -13,3 +13,7 @@ type Product = {
 export interface ProductResponseDTO {
 	product: Product;
 };
+
+export interface ArrProductResponseDTO {
+	products: Product[];
+};

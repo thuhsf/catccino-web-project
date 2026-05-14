@@ -2,7 +2,7 @@ import type { ProductRequestDTO } from "@entities/product/ProductRequestDTO.js";
 import type { ProductResponseDTO } from "@entities/product/ProductResponseDTO.js";
 import type { IProductRepository } from "@repositories/interfaces/IProductRepository.js";
 
-class UpdateCategoryUseCase {
+class UpcateProductUseCase {
 
     constructor(private readonly repository: IProductRepository) { };
 
@@ -58,4 +58,4 @@ class UpdateCategoryUseCase {
     };
 };
 
-export { UpdateCategoryUseCase };
+export { UpcateProductUseCase };
