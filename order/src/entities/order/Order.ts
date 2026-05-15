@@ -1,10 +1,12 @@
+import type { OrderItem } from "./order-item/OrderItem.js";
+
 type OrderStatus = "pending" | "paid" | "canceled";
 
 type OrderProps = {
     id?: string;
     customerId: string;
-    status: OrderStatus;
-    total: number;
+    status?: OrderStatus;
+    items?: OrderItem[];
     createdAt?: Date;
     updatedAt?: Date;
 };
@@ -16,12 +18,18 @@ class Order {
     private Total: number;
     private CreatedAt: Date;
     private UpdatedAt: Date;
+    private Items: OrderItem[];
 
     constructor(props: OrderProps) {
         this.Id = props.id ?? "";
         this.CustomerId = props.customerId;
-        this.Status = props.status;
-        this.Total = props.total;
+        this.Status = props.status ?? "pending";
+
+        this.Items = props.items ?? [];
+
+        this.Total = 0;
+        this.calculateTotal();
+
         this.CreatedAt = props.createdAt ?? new Date();
         this.UpdatedAt = props.updatedAt ?? new Date();
     };
@@ -50,18 +58,13 @@ class Order {
         return this.UpdatedAt;
     };
 
+    getItems(): ReadonlyArray<OrderItem> {
+        return this.Items;
+    };
+
     changeStatus(value: OrderStatus) {
         this.Status = value;
 
-        this.touch();
-    };
-
-    changeTotal(value: number) {
-        if (value <= 0) {
-            throw new Error("Invalid order total");
-        };
-
-        this.Total = value;
         this.touch();
     };
 
@@ -69,6 +72,30 @@ class Order {
         this.UpdatedAt = new Date();
     };
 
+    addItem(newItem: OrderItem) {
+
+        const existingItem = this.Items.find((item) => item.getProductId() === newItem.getProductId());
+
+        if (existingItem) {
+            existingItem.changeQuantity(
+                existingItem.getQuantity() + newItem.getQuantity()
+            );
+        } else {
+            this.Items.push(newItem);
+        };
+
+        this.calculateTotal();
+        this.touch();
+    };
+
+    private calculateTotal() {
+
+        this.Total = this.Items.reduce(
+            (acc, item) => acc + item.getSubTotal(),
+            0
+        );
+
+    };
 };
 
 export { Order };

@@ -8,4 +8,4 @@ export interface OrderItemResponseDTO {
 
 export interface ArrOrderItemResponseDTO {
     orders_items: OrderItemResponseDTO[]
-}
+};
