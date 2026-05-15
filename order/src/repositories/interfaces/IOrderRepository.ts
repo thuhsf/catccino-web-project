@@ -7,5 +7,9 @@ export interface IOrderRepository {
     findById: (id: string) => Promise<Order | null>;
     findAll: () => Promise<Order[]>;
     updateStatus: (orderId: string, status: OrderStatusProps) => Promise<Order | null>;
-    delete: (orderId: string) => Promise<void>
-}
+    delete: (orderId: string) => Promise<Order>;
+};
+
+export interface IOrderFactory {
+    createRepository(): IOrderRepository;
+};
