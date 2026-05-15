@@ -2,6 +2,7 @@ type OrderItemProps = {
     id?: string;
     orderId: string;
     productId: string;
+    productName: string;
     quantity: number;
     unitPrice: number;
 };
@@ -11,6 +12,7 @@ class OrderItem {
     private readonly Id: string;
     private OrderId: string;
     private ProductId: string;
+    private ProductName: string;
     private Quantity: number;
     private UnitPrice: number;
     private Subtotal: number;
@@ -28,6 +30,7 @@ class OrderItem {
         this.Id = props.id ?? "";
         this.OrderId = props.orderId;
         this.ProductId = props.productId;
+        this.ProductName = props.productName;
         this.Quantity = props.quantity;
         this.UnitPrice = props.unitPrice;
 
@@ -45,6 +48,10 @@ class OrderItem {
     getProductId(): string {
         return this.ProductId;
     };
+
+    getProductName(): string {
+        return this.ProductName;
+    }
 
     getQuantity(): number {
         return this.Quantity;

@@ -12,6 +12,7 @@ class OrderRepository implements IOrderRepository {
             id: row.id,
             orderId: row.order_id,
             productId: row.product_id,
+            productName: row.product_name,
             quantity: row.quantity,
             unitPrice: Number(row.unit_price)
         });
@@ -77,9 +78,9 @@ class OrderRepository implements IOrderRepository {
                     INSERT INTO order_items (
                         order_id,
                         product_id,
+                        product_name,
                         quantity,
                         unit_price,
-                        subtotal
                     )
                     VALUES ($1, $2, $3, $4, $5)
                 `;
@@ -87,9 +88,9 @@ class OrderRepository implements IOrderRepository {
                 const itemValues = [
                     createdOrder.id,
                     item.getProductId(),
+                    item.getProductName(),
                     item.getQuantity(),
                     item.getUnitPrice(),
-                    item.getSubTotal()
                 ];
 
                 await client.query(itemSql, itemValues);
