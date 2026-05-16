@@ -1,28 +1,31 @@
+import listProductQuerySchema from "@/entities/product/schemas/ListProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { makeList } from "@use-cases/factories/product/makeList.js";
 import type { Request, Response } from "express";
 
 async function ListProductControlelr(req: Request, res: Response) {
-	try {
+    try {
 
-		const factory = new ProductFactory();
-		const list = makeList(factory);
+        const { name } = listProductQuerySchema.parse(req.query);
 
-		const product = await list.execute();
+        const factory = new ProductFactory();
+        const list = makeList(factory);
 
-		return res.status(200).json({ ...product });
+        const product = await list.execute({ name });
 
-	} catch (err: Error | any) {
-		console.error(err);
+        return res.status(200).json({ ...product });
 
-		res
-			.status(400)
-			.json({
-				status: 400,
-				message: "Houve um erro interno",
-				error: err
-			});
-	};
+    } catch (err: Error | any) {
+        console.error(err);
+
+        res
+            .status(400)
+            .json({
+                status: 400,
+                message: "Houve um erro interno",
+                error: err
+            });
+    };
 };
 
 export { ListProductControlelr };
