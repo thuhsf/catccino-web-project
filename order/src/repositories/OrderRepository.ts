@@ -1,8 +1,8 @@
 import { pool } from "@database/pg.js";
 import { Order } from "@entities/order/Order.js";
 import { OrderItem } from "@entities/order/order-item/OrderItem.js";
-import type { OrderRow, OrderItemRow } from "./types/order/OrderRow.js";
-import type { IOrderFactory, IOrderRepository } from "./interfaces/IOrderRepository.js";
+import type { OrderRow, OrderItemRow } from "@repositories/types/order/OrderRow.js";
+import type { IOrderFactory, IOrderRepository } from "@repositories/interfaces/IOrderRepository.js";
 
 class OrderRepository implements IOrderRepository {
 

@@ -1,6 +1,6 @@
+import type { Request, Response } from "express";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
 import { makeList } from "@use-cases/factories/category/makeList.js";
-import type { Request, Response } from "express";
 
 async function ListCategoryController(req: Request, res: Response) {
     try {

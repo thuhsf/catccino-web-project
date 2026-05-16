@@ -1,7 +1,7 @@
-import listProductQuerySchema from "@/entities/product/schemas/ListProductSchema.js";
+import type { Request, Response } from "express";
+import listProductQuerySchema from "@entities/product/schemas/ListProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { makeList } from "@use-cases/factories/product/makeList.js";
-import type { Request, Response } from "express";
 
 async function ListProductControlelr(req: Request, res: Response) {
     try {

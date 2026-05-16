@@ -1,4 +1,4 @@
-import { Order } from "@/entities/order/Order.js";
+import { Order } from "@entities/order/Order.js";
 
 type OrderStatusProps = "pending" | "paid" | "canceled"
 

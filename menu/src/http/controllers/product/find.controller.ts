@@ -1,6 +1,6 @@
+import type { Request, Response } from "express";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { makeFind } from "@use-cases/factories/product/makeFind.js";
-import type { Request, Response } from "express";
 
 async function FindProductController(req: Request, res: Response) {
     try {

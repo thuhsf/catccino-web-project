@@ -1,7 +1,7 @@
-import Product from "@entities/product/Product.js";
-import type { IProductFactory, IProductRepository } from "./interfaces/IProductRepository.js";
 import { pool } from "@database/pg.js";
-import type { ProductRow } from "./types/ProductRow.js";
+import Product from "@entities/product/Product.js";
+import type { IProductFactory, IProductRepository } from "@repositories/interfaces/IProductRepository.js";
+import type { ProductRow } from "@repositories/types/ProductRow.js";
 
 class ProductRepository implements IProductRepository {
     private mapToEntity(row: ProductRow): Product {

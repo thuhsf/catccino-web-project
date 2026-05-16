@@ -1,4 +1,4 @@
-import { UpdateProductUseCase } from "../../product/UpdateProductUseCase.js";
+import { UpdateProductUseCase } from "@use-cases/product/UpdateProductUseCase.js";
 import type { IProductFactory } from "@repositories/interfaces/IProductRepository.js";
 
 export function makeUpdate(productFactory: IProductFactory) {

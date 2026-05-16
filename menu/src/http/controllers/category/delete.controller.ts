@@ -1,6 +1,6 @@
+import type { Request, Response } from "express";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
 import { makeDelete } from "@use-cases/factories/category/makeDelete.js";
-import type { Request, Response } from "express";
 
 
 async function DeleteCategoryController(req: Request, res: Response) {

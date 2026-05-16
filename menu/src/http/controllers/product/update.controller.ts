@@ -1,7 +1,7 @@
+import type { Request, Response } from "express";
 import productSchema from "@entities/product/schemas/ProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { makeUpdate } from "@use-cases/factories/product/makeUpdate.js";
-import type { Request, Response } from "express";
 
 async function UpdateProductController(req: Request, res: Response) {
     try {

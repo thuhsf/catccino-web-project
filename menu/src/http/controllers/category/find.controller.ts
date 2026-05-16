@@ -1,6 +1,6 @@
+import type { Request, Response } from "express";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
 import { makeFind } from "@use-cases/factories/category/makeFind.js";
-import type { Request, Response } from "express";
 
 async function FindCategoryController(req: Request, res: Response) {
     try {

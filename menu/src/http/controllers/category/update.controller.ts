@@ -1,5 +1,5 @@
-import categorySchema from "@entities/category/schemas/CategorySchema.js";
 import type { Request, Response } from "express";
+import categorySchema from "@entities/category/schemas/CategorySchema.js";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
 import { makeUpdate } from "@use-cases/factories/category/makeUpdate.js";
 

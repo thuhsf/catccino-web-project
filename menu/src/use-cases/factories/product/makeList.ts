@@ -1,4 +1,4 @@
-import { ListProductUseCase } from "../../product/ListProductUseCase.js";
+import { ListProductUseCase } from "@use-cases/product/ListProductUseCase.js";
 import type { IProductFactory } from "@repositories/interfaces/IProductRepository.js";
 
 export function makeList(productFactory: IProductFactory) {

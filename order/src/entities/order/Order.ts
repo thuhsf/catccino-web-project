@@ -1,4 +1,4 @@
-import type { OrderItem } from "./order-item/OrderItem.js";
+import type { OrderItem } from "@entities/order/order-item/OrderItem.js";
 
 type OrderStatus = "pending" | "paid" | "canceled";
 
