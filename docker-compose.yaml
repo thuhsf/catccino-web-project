@@ -94,6 +94,22 @@ services:
       db: 
         condition: service_healthy
 
+  notification:
+    container_name: notification
+    build:
+      context: ./services/notification
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+#    networks:
+#      - services
+    restart: always
+    env_file:
+      - ./services/notification/.env
+    depends_on:
+      db: 
+        condition: service_healthy
+
 #  nginx:
 #    image: nginx:latest
 #    container_name: nginx

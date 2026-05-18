@@ -1,7 +1,7 @@
 import express, { type Express } from "express";
 import cors from "cors";
 
-import TicketRoutes from "@controllers/ticket/routes/index.js";
+import NotificationRoutes from "@controllers/notification/routes/index.js";
 import { serverConfig } from "@config/serverConfig.js";
 
 const app: Express = express();
@@ -13,7 +13,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(serverConfig.routes.prefix, TicketRoutes);
+app.use(serverConfig.routes.prefix, NotificationRoutes);
 
 app.use((req, res) => {
     res.status(404).send("Not Found");

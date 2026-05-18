@@ -10,13 +10,13 @@ import http from "node:http";
 import { waitForDb } from "@utils/wait-for-db.js";
 import { AppServer } from "@/app.js";
 import { serverConfig } from "@config/serverConfig.js";
-import { consumer } from "@config/kafkaConfig.js";
-import { startKitchenConsumer } from "@utils/KitchenConsumer.js";
+import { consumer } from "./config/kafkaConfig.js";
+import { startNotificationConsumer } from "./utils/notificationConsumer.js";
 
 const server = http.createServer(AppServer);
 
 await consumer.connect();
-await startKitchenConsumer(consumer);
+await startNotificationConsumer(consumer);
 
 const PORT = process.env.PORT || 4000;
 

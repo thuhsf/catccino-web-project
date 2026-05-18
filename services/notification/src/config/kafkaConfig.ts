@@ -1,10 +1,10 @@
 import { Kafka } from "kafkajs";
 
 const kafka = new Kafka({
-    clientId: "kitchen-service",
+    clientId: "notification-service",
     brokers: ["kafka1:9002", "kafka2:9002"]
 });
 
-const consumer = kafka.consumer({ groupId: "kitchen-service" });
+const consumer = kafka.consumer({ groupId: "notification-service" });
 
 export { consumer };
