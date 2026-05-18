@@ -17,7 +17,6 @@ const server = http.createServer(AppServer);
 await producer.connect();
 await consumer.connect();
 
-
 const PORT = process.env.PORT || 4000;
 
 async function bootstrap() {

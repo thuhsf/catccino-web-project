@@ -1,3 +1,4 @@
+// config/kafkaConfig.ts
 import { Kafka } from "kafkajs";
 
 const kafka = new Kafka({
@@ -5,7 +6,6 @@ const kafka = new Kafka({
     brokers: ["kafka1:9002", "kafka2:9002"]
 });
 
+const consumer = kafka.consumer({ groupId: "menu-service" });
 
-const producer = kafka.producer();
-
-export { producer }
+export { consumer };

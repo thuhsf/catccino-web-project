@@ -80,7 +80,7 @@ class OrderRepository implements IOrderRepository {
                         product_id,
                         product_name,
                         quantity,
-                        unit_price,
+                        unit_price
                     )
                     VALUES ($1, $2, $3, $4, $5)
                 `;

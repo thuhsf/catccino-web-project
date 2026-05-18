@@ -8,8 +8,8 @@ import { serverConfig } from "@config/serverConfig.js";
 const app: Express = express();
 
 app.use(cors({
-	origin: serverConfig.cors.origin,
-	methods: serverConfig.cors.methods
+    origin: serverConfig.cors.origin,
+    methods: serverConfig.cors.methods
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,7 +18,7 @@ app.use(serverConfig.routes.prefix, CategoryRoutes);
 app.use(serverConfig.routes.prefix, ProductRoutes);
 
 app.use((req, res) => {
-	res.status(404).send("Not Found");
+    res.status(404).send("Not Found");
 });
 
 export { app as AppServer };

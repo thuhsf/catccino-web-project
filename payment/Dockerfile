@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /order
+WORKDIR /payment
 
 COPY package*.json ./
 
