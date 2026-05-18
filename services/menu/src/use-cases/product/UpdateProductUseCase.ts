@@ -53,7 +53,7 @@ class UpdateProductUseCase {
                 categoryId: updatedProduct.getCategoryId(),
                 available: updatedProduct.getAvailable(),
                 name: updatedProduct.getName(),
-                description: updatedProduct.getName(),
+                description: updatedProduct.getDescription(),
                 price: updatedProduct.getPrice(),
                 imageUrl: updatedProduct.getImageUrl(),
                 createdAt: updatedProduct.getCreatedAt(),

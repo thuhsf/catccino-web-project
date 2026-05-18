@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(serverConfig.routes.prefix, PaymentRoutes);
 
-
 app.use((req, res) => {
     res.status(404).send("Not Found");
 });

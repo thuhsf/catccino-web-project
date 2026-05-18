@@ -10,8 +10,8 @@ import http from "node:http";
 import { waitForDb } from "@utils/wait-for-db.js";
 import { AppServer } from "@/app.js";
 import { serverConfig } from "@config/serverConfig.js";
-import { consumer } from "./config/kafkaConfig.js";
-import { startNotificationConsumer } from "./utils/notificationConsumer.js";
+import { consumer } from "@config/kafkaConfig.js";
+import { startNotificationConsumer } from "@utils/notificationConsumer.js";
 
 const server = http.createServer(AppServer);
 

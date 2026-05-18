@@ -1,8 +1,8 @@
 import { Kafka } from "kafkajs";
 
 const kafka = new Kafka({
-    clientId: "order-service",  // era "menu-service", ajusta pro serviço correto
-    brokers: ["kafka1:9002", "kafka2:9002"]
+    clientId: "order-service",
+    brokers: ["kafka1:9092", "kafka2:9093"]
 });
 
 const producer = kafka.producer();
