@@ -33,7 +33,7 @@ services:
   menu:
     container_name: menu
     build:
-      context: ./menu
+      context: ./services/menu
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -41,7 +41,7 @@ services:
 #      - services
     restart: always
     env_file:
-      - ./menu/.env
+      - ./services/menu/.env
     depends_on:
       db: 
         condition: service_healthy
@@ -49,7 +49,7 @@ services:
   order:
     container_name: order
     build:
-      context: ./order
+      context: ./services/order
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -57,7 +57,7 @@ services:
 #      - services
     restart: always
     env_file:
-      - ./order/.env
+      - ./services/order/.env
     depends_on:
       db: 
         condition: service_healthy
@@ -65,7 +65,7 @@ services:
   payment:
     container_name: payment
     build:
-      context: ./payment
+      context: ./services/payment
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -73,7 +73,23 @@ services:
 #      - services
     restart: always
     env_file:
-      - ./payment/.env
+      - ./services/payment/.env
+    depends_on:
+      db: 
+        condition: service_healthy
+
+  kitchen:
+    container_name: kitchen
+    build:
+      context: ./services/kitchen
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+#    networks:
+#      - services
+    restart: always
+    env_file:
+      - ./services/kitchen/.env
     depends_on:
       db: 
         condition: service_healthy
