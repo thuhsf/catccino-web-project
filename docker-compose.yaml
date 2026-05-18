@@ -46,6 +46,22 @@ services:
       db: 
         condition: service_healthy
 
+  order:
+    container_name: order
+    build:
+      context: ./order
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+#    networks:
+#      - services
+    restart: always
+    env_file:
+      - ./order/.env
+    depends_on:
+      db: 
+        condition: service_healthy
+
 #  nginx:
 #    image: nginx:latest
 #    container_name: nginx

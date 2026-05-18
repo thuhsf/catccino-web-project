@@ -1,6 +1,6 @@
 type OrderStatus = "pending" | "paid" | "canceled";
 
-type Order = {
+export type OrderResponseDTO = {
     id?: string;
     customerId: string;
     status: OrderStatus;
@@ -9,10 +9,6 @@ type Order = {
     updatedAt?: Date;
 };
 
-export interface OrderResponseDTO {
-    order: Order;
-};
-
 export interface ArrOrderResponseDTO {
-    orders: Order[];
+    orders: OrderResponseDTO[];
 };

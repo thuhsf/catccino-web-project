@@ -1,6 +1,7 @@
 import express, { type Express } from "express";
 import cors from "cors";
 
+import OrderRoutes from "@controllers/order/routes/index.js"
 import { serverConfig } from "@config/serverConfig.js";
 
 const app: Express = express();
@@ -11,6 +12,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(serverConfig.routes.prefix, OrderRoutes);
 
 
 app.use((req, res) => {

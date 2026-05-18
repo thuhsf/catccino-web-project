@@ -215,6 +215,37 @@ class OrderRepository implements IOrderRepository {
 
     };
 
+    async findByCustomerId(customerId: string): Promise<Order[]> {
+        const sql = `
+        SELECT * FROM orders
+        WHERE customer_id = $1
+        ORDER BY created_at DESC
+    `;
+
+        const result = await pool.query<OrderRow>(sql, [customerId]);
+
+        const orders: Order[] = [];
+
+        for (const row of result.rows) {
+            const itemsSql = `
+            SELECT *
+            FROM order_items
+            WHERE order_id = $1
+        `;
+
+            const itemsResult = await pool.query<OrderItemRow>(itemsSql, [row.id]);
+
+            const items = itemsResult.rows.map((itemRow) =>
+                this.mapItemRowToEntity(itemRow)
+            );
+
+            orders.push(this.mapToEntity(row, items));
+        }
+
+        return orders;
+    };
+
+
     async updateStatus(
         orderId: string,
         status: "pending" | "paid" | "canceled"

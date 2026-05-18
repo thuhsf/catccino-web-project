@@ -2,7 +2,7 @@ import { apiEnvConfig } from "@config/apiConfig.js";
 import axios, { type AxiosInstance } from "axios";
 import type { IProductGateway } from "@services/interfaces/product/IProductGateway.js";
 
-class ProductAPI implements IProductGateway {
+class ProductGateway implements IProductGateway {
 
     private readonly api: AxiosInstance;
 
@@ -12,13 +12,13 @@ class ProductAPI implements IProductGateway {
         });
     };
 
-    async getProductById(productId: string) {
+    async findProductById(productId: string) {
         const res = await this.api.get(`/api/v1/products/${productId}`);
 
-        return res.data;
+        return res.data.product;
     };
 
-    async getProductByName(productName: string) {
+    async findProductByName(productName: string) {
         const res = await this.api.get(
             `/api/v1/products?name=${productName}`
         );
@@ -26,7 +26,7 @@ class ProductAPI implements IProductGateway {
         return res.data;
     };
 
-    async getProducts() {
+    async findProducts() {
         const res = await this.api.get(
             "/api/v1/products"
         );
@@ -36,6 +36,4 @@ class ProductAPI implements IProductGateway {
 };
 
 
-export default {
-    productApi: new ProductAPI()
-}
+export { ProductGateway };

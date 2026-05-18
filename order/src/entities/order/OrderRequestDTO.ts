@@ -1,12 +1,8 @@
 type OrderStatus = "pending" | "paid" | "canceled";
 
-type Order = {
+export type OrderRequestDTO = {
     id?: string;
     customerId: string;
     status: OrderStatus;
     total: number;
-};
-
-export interface OrderRequestDTO {
-    order: Order;
 };

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import categorySchema from "@entities/category/schemas/CategorySchema.js";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
-import { makeUpdate } from "@use-cases/factories/category/makeUpdate.js";
+import { makeUpdateCategory } from "@use-cases/factories/category/makeUpdate.js";
 
 async function UpdateCategoryController(
     req: Request,
@@ -17,9 +17,9 @@ async function UpdateCategoryController(
         const data = categorySchema.parse(req.body);
 
         const factory = new CategoryFactory();
-        const update = makeUpdate(factory);
+        const updateCategory = makeUpdateCategory(factory);
 
-        const category = await update.execute({
+        const category = await updateCategory.execute({
             id,
             ...data,
         });

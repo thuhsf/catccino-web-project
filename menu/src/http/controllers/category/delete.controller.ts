@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
-import { makeDelete } from "@use-cases/factories/category/makeDelete.js";
+import { makeDeleteCategory } from "@use-cases/factories/category/makeDelete.js";
 
 
 async function DeleteCategoryController(req: Request, res: Response) {
@@ -12,7 +12,7 @@ async function DeleteCategoryController(req: Request, res: Response) {
         };
 
         const factory = new CategoryFactory();
-        const deleteCategory = makeDelete(factory);
+        const deleteCategory = makeDeleteCategory(factory);
 
         const category = await deleteCategory.execute(id);
 

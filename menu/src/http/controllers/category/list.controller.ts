@@ -1,14 +1,14 @@
 import type { Request, Response } from "express";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
-import { makeList } from "@use-cases/factories/category/makeList.js";
+import { makeListCategory } from "@use-cases/factories/category/makeList.js";
 
 async function ListCategoryController(req: Request, res: Response) {
     try {
 
         const factory = new CategoryFactory();
-        const list = makeList(factory);
+        const listCategory = makeListCategory(factory);
 
-        const category = await list.execute();
+        const category = await listCategory.execute();
 
         return res.status(200).json({
             category: { ...category }

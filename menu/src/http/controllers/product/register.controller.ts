@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import productSchema from "@entities/product/schemas/ProductSchema.js";
-import { makeCreate } from "@use-cases/factories/product/makeCreate.js";
+import { makeCreateProduct } from "@use-cases/factories/product/makeCreate.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
 
@@ -11,10 +11,10 @@ async function RegisterProductController(req: Request, res: Response) {
         const productFact = new ProductFactory();
         const categoryFact = new CategoryFactory();
 
-        const register = makeCreate(productFact, categoryFact);
+        const registerProduct = makeCreateProduct(productFact, categoryFact);
 
 
-        const product = await register.execute({
+        const product = await registerProduct.execute({
             product: { ...data }
         });
 

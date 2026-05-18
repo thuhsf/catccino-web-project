@@ -1,4 +1,4 @@
 export interface OrderItemRequestDTO {
-    productid: string;
+    productId: string;
     quantity: number;
 };

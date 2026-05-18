@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { ProductFactory } from "@repositories/ProductRepository.js";
-import { makeFind } from "@use-cases/factories/product/makeFind.js";
+import { makeFindProduct } from "@use-cases/factories/product/makeFind.js";
 
 async function FindProductController(req: Request, res: Response) {
     try {
@@ -12,9 +12,9 @@ async function FindProductController(req: Request, res: Response) {
         };
 
         const factory = new ProductFactory();
-        const find = makeFind(factory);
+        const findProduct = makeFindProduct(factory);
 
-        const product = await find.execute(id);
+        const product = await findProduct.execute(id);
 
         return res.status(200).json({ ...product });
 

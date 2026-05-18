@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import listProductQuerySchema from "@entities/product/schemas/ListProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
-import { makeList } from "@use-cases/factories/product/makeList.js";
+import { makeListProduct } from "@use-cases/factories/product/makeList.js";
 
 async function ListProductControlelr(req: Request, res: Response) {
     try {
@@ -9,9 +9,9 @@ async function ListProductControlelr(req: Request, res: Response) {
         const { name } = listProductQuerySchema.parse(req.query);
 
         const factory = new ProductFactory();
-        const list = makeList(factory);
+        const listProduct = makeListProduct(factory);
 
-        const product = await list.execute({ name });
+        const product = await listProduct.execute({ name });
 
         return res.status(200).json({ ...product });
 

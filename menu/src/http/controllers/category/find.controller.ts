@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";
-import { makeFind } from "@use-cases/factories/category/makeFind.js";
+import { makeFindCategory } from "@use-cases/factories/category/makeFind.js";
 
 async function FindCategoryController(req: Request, res: Response) {
     try {
@@ -11,9 +11,9 @@ async function FindCategoryController(req: Request, res: Response) {
         };
 
         const factory = new CategoryFactory();
-        const find = makeFind(factory);
+        const findCategory = makeFindCategory(factory);
 
-        const category = await find.execute(id);
+        const category = await findCategory.execute(id);
 
         return res.status(200).json({
             category: { ...category }

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import productSchema from "@entities/product/schemas/ProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
-import { makeUpdate } from "@use-cases/factories/product/makeUpdate.js";
+import { makeUpdateProduct } from "@use-cases/factories/product/makeUpdate.js";
 
 async function UpdateProductController(req: Request, res: Response) {
     try {
@@ -15,9 +15,9 @@ async function UpdateProductController(req: Request, res: Response) {
         const data = productSchema.parse(req.body);
 
         const factory = new ProductFactory();
-        const update = makeUpdate(factory);
+        const updateProduct = makeUpdateProduct(factory);
 
-        const product = await update.execute({ product: { id, ...data } });
+        const product = await updateProduct.execute({ product: { id, ...data } });
 
         return res.status(200).json({ ...product });
 
