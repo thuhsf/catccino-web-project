@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-
 const createOrderSchema = z.object({
     customerId: z.string(),
     items: z.array(z.object({
