@@ -7,7 +7,7 @@ class ListProductUseCase {
 
     async execute(data: LisproductRequestDTO): Promise<ArrProductResponseDTO> {
         const products = data.name
-            ? await this.repository.findByName(data.name)
+            ? await this.repository.searchByName(data.name)
             : await this.repository.listAll();
 
         return {

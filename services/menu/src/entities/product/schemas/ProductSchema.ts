@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const productSchema = z.object({
+export const productSchema = z.object({
     name: z.string().min(4).max(40),
     description: z.string().min(8).max(300),
     price: z.coerce.number().positive().max(1000),
@@ -9,4 +9,11 @@ const productSchema = z.object({
     imageUrl: z.string().url().optional(),
 });
 
-export default productSchema;
+export const updateProductSchema = z.object({
+    name: z.string().min(4).max(40).optional(),
+    description: z.string().min(8).max(300).optional(),
+    price: z.coerce.number().positive().max(1000).optional(),
+    categoryId: z.string().optional(),
+    available: z.boolean().optional(),
+    imageUrl: z.string().url().optional(),
+});

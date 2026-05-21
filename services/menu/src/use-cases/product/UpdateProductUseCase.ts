@@ -1,4 +1,4 @@
-import type { ProductRequestDTO } from "@entities/product/ProductRequestDTO.js";
+import type { ProductRequestDTO, UpdateProductRequestDTO } from "@entities/product/ProductRequestDTO.js";
 import type { ProductResponseDTO } from "@entities/product/ProductResponseDTO.js";
 import type { IProductRepository } from "@repositories/interfaces/IProductRepository.js";
 
@@ -6,7 +6,7 @@ class UpdateProductUseCase {
 
     constructor(private readonly repository: IProductRepository) { };
 
-    async execute(data: ProductRequestDTO): Promise<ProductResponseDTO> {
+    async execute(data: UpdateProductRequestDTO): Promise<ProductResponseDTO> {
 
 
         if (!data.product.id) {

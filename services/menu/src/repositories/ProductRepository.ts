@@ -80,25 +80,38 @@ class ProductRepository implements IProductRepository {
         });
     };
 
-    async findByName(name: string): Promise<Product[]> {
+    async findByName(name: string): Promise<Product | null> {
         const sql = `
-			SELECT * FROM products
-			WHERE name ILIKE $1
-		`;
+        SELECT * FROM products
+        WHERE name ILIKE $1
+    `;
 
-        const result = await pool.query(sql, [`%${name}%`]);
+        const result = await pool.query(sql, [name]);
 
-        return result.rows.map((row) => this.mapToEntity(row));
-    };
+        if (!result.rows.length) {
+            return null;
+        }
+
+        return this.mapToEntity(result.rows[0]);
+    }
+
+    async searchByName(name: string): Promise<Product[]> {
+        const sql = `
+        SELECT * FROM products
+        WHERE name ILIKE $1
+    `;
+        const result = await pool.query<ProductRow>(sql, [`%${name}%`]);
+        return result.rows.map((row: ProductRow) => this.mapToEntity(row));
+    }
 
     async listAll(): Promise<Product[]> {
         const sql = `
 			SELECT * FROM products
 		`;
 
-        const result = await pool.query(sql);
+        const result = await pool.query<ProductRow>(sql);
 
-        return result.rows.map((row) => this.mapToEntity(row));
+        return result.rows.map((row: ProductRow) => this.mapToEntity(row));
     };
 
     async findById(id: string): Promise<Product | null> {

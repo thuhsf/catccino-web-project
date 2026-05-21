@@ -6,53 +6,53 @@ import type { IProductRepository } from "@repositories/interfaces/IProductReposi
 
 class CreateProductUseCase {
 
-	constructor(
-		private readonly productRepository: IProductRepository,
-		private readonly categoryRepository: ICategoryRepository
-	) { }
+    constructor(
+        private readonly productRepository: IProductRepository,
+        private readonly categoryRepository: ICategoryRepository
+    ) { }
 
-	async execute(data: ProductRequestDTO): Promise<ProductResponseDTO> {
-		const findProduct = await this.productRepository.findByName(data.product.name);
+    async execute(data: ProductRequestDTO): Promise<ProductResponseDTO> {
+        const findProduct = await this.productRepository.findByName(data.product.name);
 
-		if (findProduct) {
-			throw new Error("Produto já existe");
-		};
+        if (findProduct) {
+            throw new Error("Produto já existe");
+        };
 
-		const findCategory = await this.categoryRepository.findById(data.product.categoryId);
+        const findCategory = await this.categoryRepository.findById(data.product.categoryId);
 
-		if (!findCategory) {
-			throw new Error("Categoria não encontrada");
-		};
+        if (!findCategory) {
+            throw new Error("Categoria não encontrada");
+        };
 
-		const newProduct = new Product({
-			name: data.product.name,
-			description: data.product.description,
-			price: data.product.price,
-			categoryId: data.product.categoryId,
-			available: data.product.available ?? false,
-			imageUrl: data.product.imageUrl ?? ""
-		});
+        const newProduct = new Product({
+            name: data.product.name,
+            description: data.product.description,
+            price: data.product.price,
+            categoryId: data.product.categoryId,
+            available: data.product.available ?? false,
+            imageUrl: data.product.imageUrl ?? ""
+        });
 
-		const createdProduct = await this.productRepository.create(newProduct);
+        const createdProduct = await this.productRepository.create(newProduct);
 
-		if (!createdProduct) {
-			throw new Error("Falha ao criar produto");
-		};
+        if (!createdProduct) {
+            throw new Error("Falha ao criar produto");
+        };
 
-		return {
-			product: {
-				id: createdProduct.getId(),
-				name: createdProduct.getName(),
-				description: createdProduct.getDescription(),
-				price: createdProduct.getPrice(),
-				categoryId: createdProduct.getCategoryId(),
-				available: createdProduct.getAvailable(),
-				imageUrl: createdProduct.getImageUrl(),
-				createdAt: createdProduct.getCreatedAt(),
-				updatedAt: createdProduct.getUpdatedAt()
-			}
-		};
-	};
+        return {
+            product: {
+                id: createdProduct.getId(),
+                name: createdProduct.getName(),
+                description: createdProduct.getDescription(),
+                price: createdProduct.getPrice(),
+                categoryId: createdProduct.getCategoryId(),
+                available: createdProduct.getAvailable(),
+                imageUrl: createdProduct.getImageUrl(),
+                createdAt: createdProduct.getCreatedAt(),
+                updatedAt: createdProduct.getUpdatedAt()
+            }
+        };
+    };
 };
 
 export default CreateProductUseCase;

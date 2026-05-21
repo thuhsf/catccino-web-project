@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import productSchema from "@entities/product/schemas/ProductSchema.js";
+import { productSchema } from "@entities/product/schemas/ProductSchema.js";
 import { makeCreateProduct } from "@use-cases/factories/product/makeCreate.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { CategoryFactory } from "@repositories/CategoryRepository.js";

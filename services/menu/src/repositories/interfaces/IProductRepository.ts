@@ -4,7 +4,8 @@ export interface IProductRepository {
     create: (data: Product) => Promise<Product | null>;
     update: (data: Product) => Promise<Product | null>;
     listAll(): Promise<Product[]>;
-    findByName: (name: string) => Promise<Product[]>;
+    findByName: (name: string) => Promise<Product | null>;
+    searchByName: (name: string) => Promise<Product[]>;
     findById: (id: string) => Promise<Product | null>;
 };
 

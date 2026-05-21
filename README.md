@@ -6,6 +6,70 @@ O projeto surgiu com a ideia de criar um sistema simples, organizado e escaláve
 
 ---
 
+## 🌎 Scripts para execução | Run scripts
+
+Antes de executar os containers, leia atentamente a documentação dos scripts disponíveis.  
+Alguns scripts podem remover containers, imagens e volumes Docker existentes.
+
+Before running the containers, carefully read the available scripts documentation.  
+Some scripts may remove existing Docker containers, images, and volumes.
+
+📚 Scripts documentation:
+
+[Scripts Documentation](https://github.com/thuhsf/catccino-web-project/tree/main/scripts/docker)
+
+---
+
+### 🚀 Inicialização limpa | Clean startup
+
+Recria os serviços do zero.
+
+Recreates the services from scratch.
+
+```sh
+chmod +x ./scripts/docker/start-clean.sh
+```
+
+```sh
+./scripts/docker/start-clean.sh
+```
+
+> ⚠️ Pode remover containers, imagens e volumes antigos.  
+> ⚠️ May remove old containers, images, and volumes.
+
+---
+
+### 🐳 Inicialização padrão | Standard startup
+
+Executa o ambiente utilizando apenas Docker Compose.
+
+Runs the environment using plain Docker Compose.
+
+```sh
+docker compose up --build -d
+```
+
+---
+
+### 🛑 Parar containers | Stop containers
+
+```sh
+docker compose down
+```
+
+---
+
+### 🧹 Remover containers + volumes | Remove containers + volumes
+
+```sh
+docker compose down -v
+```
+
+> ⚠️ Remove também os dados persistidos nos volumes Docker.  
+> ⚠️ Also removes persisted Docker volume data.
+
+---
+
 ## 🌎 Languages
 
 - [Português](#pt-br)
@@ -48,11 +112,11 @@ Com o crescimento do projeto, novos módulos poderão ser adicionados.
 
 ### Fase 1 (MVP)
 
-- [ ] Menu Service
-- [ ] Order Service
-- [ ] Kitchen Service
-- [ ] Payment Service
-- [ ] Notification Service
+- [x] Menu Service
+- [x] Order Service
+- [x] Kitchen Service
+- [x] Payment Service
+- [x] Notification Service
 
 ### Fase 2
 
@@ -190,11 +254,11 @@ More modules may be added as the project grows.
 
 ### Phase 1 (MVP)
 
-- [ ] Menu Service
-- [ ] Order Service
-- [ ] Kitchen Service
-- [ ] Payment Service
-- [ ] Notification Service
+- [x] Menu Service
+- [x] Order Service
+- [x] Kitchen Service
+- [x] Payment Service
+- [x] Notification Service
 
 ### Phase 2
 

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import productSchema from "@entities/product/schemas/ProductSchema.js";
 import { ProductFactory } from "@repositories/ProductRepository.js";
 import { makeUpdateProduct } from "@use-cases/factories/product/makeUpdate.js";
+import { updateProductSchema } from "@/entities/product/schemas/ProductSchema.js";
 
 async function UpdateProductController(req: Request, res: Response) {
     try {
@@ -12,7 +12,7 @@ async function UpdateProductController(req: Request, res: Response) {
             throw new Error("Id não reconhecido ou incompleto");
         };
 
-        const data = productSchema.parse(req.body);
+        const data = updateProductSchema.parse(req.body);
 
         const factory = new ProductFactory();
         const updateProduct = makeUpdateProduct(factory);

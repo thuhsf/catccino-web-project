@@ -5,8 +5,14 @@ services:
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+      KAFKA_LOG4J_ROOT_LOGLEVEL: "WARN"
     networks:
       - services
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   kafka1:
     image: confluentinc/cp-kafka:7.5.0
@@ -16,12 +22,31 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
+
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      KAFKA_LOG4J_ROOT_LOGLEVEL: "WARN"
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=WARN,kafka.producer.async.DefaultEventHandler=WARN,state.change.logger=WARN"
+
+      KAFKA_LOG_RETENTION_HOURS: 24
+      KAFKA_LOG_RETENTION_BYTES: 1073741824
     ports:
       - "9092:9092"
     networks:
       - services
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   kafka2:
     image: confluentinc/cp-kafka:7.5.0
@@ -31,12 +56,31 @@ services:
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9093
+
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      KAFKA_LOG4J_ROOT_LOGLEVEL: "WARN"
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=WARN,kafka.producer.async.DefaultEventHandler=WARN,state.change.logger=WARN"
+      
+      KAFKA_LOG_RETENTION_HOURS: 24
+      KAFKA_LOG_RETENTION_BYTES: 1073741824
     ports:
       - "9093:9093"
     networks:
       - services
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9093 --list > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -47,11 +91,18 @@ services:
       DYNAMIC_CONFIG_ENABLED: 'true'
       KAFKA_CLUSTERS_0_NAME: local-cluster
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9092,kafka2:9093
+
+      LOGGING_LEVEL_ROOT: "WARN"
     depends_on:
       - kafka1
       - kafka2
     networks:
       - services
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   db:
     image: postgres:16
@@ -71,6 +122,11 @@ services:
       timeout: 5s
       retries: 10
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   menu:
     container_name: menu
@@ -80,16 +136,23 @@ services:
     networks:
       - services
     restart: always
+    ports:
+      - 4000:4000
     env_file:
       - ./services/menu/.env
     depends_on:
       db:
         condition: service_healthy
       kafka1:
-        condition: service_started
+        condition: service_healthy
       kafka2:
-        condition: service_started
-
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+ 
   order:
     container_name: order
     build:
@@ -104,9 +167,14 @@ services:
       db:
         condition: service_healthy
       kafka1:
-        condition: service_started
+        condition: service_healthy
       kafka2:
-        condition: service_started
+       condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   payment:
     container_name: payment
@@ -122,9 +190,14 @@ services:
       db:
         condition: service_healthy
       kafka1:
-        condition: service_started
+        condition: service_healthy
       kafka2:
-        condition: service_started
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   kitchen:
     container_name: kitchen
@@ -140,9 +213,14 @@ services:
       db:
         condition: service_healthy
       kafka1:
-        condition: service_started
+        condition: service_healthy
       kafka2:
-        condition: service_started
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   notification:
     container_name: notification
@@ -158,9 +236,14 @@ services:
       db:
         condition: service_healthy
       kafka1:
-        condition: service_started
+        condition: service_healthy
       kafka2:
-        condition: service_started
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
 
   nginx:
     image: nginx:latest

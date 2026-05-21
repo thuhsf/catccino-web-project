@@ -1,5 +1,5 @@
 export type LisproductRequestDTO = {
-    name?: string;
+    name?: string | undefined;
     available?: boolean;
     categoryId?: string;
 };
