@@ -5,8 +5,7 @@ export const productSchema = z.object({
     description: z.string().min(8).max(300),
     price: z.coerce.number().positive().max(1000),
     categoryId: z.string(),
-    available: z.boolean().optional(),
-    imageUrl: z.string().url().optional(),
+    available: z.coerce.boolean().optional()
 });
 
 export const updateProductSchema = z.object({
@@ -14,6 +13,5 @@ export const updateProductSchema = z.object({
     description: z.string().min(8).max(300).optional(),
     price: z.coerce.number().positive().max(1000).optional(),
     categoryId: z.string().optional(),
-    available: z.boolean().optional(),
-    imageUrl: z.string().url().optional(),
+    available: z.coerce.boolean().optional()
 });
