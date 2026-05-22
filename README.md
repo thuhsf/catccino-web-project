@@ -134,7 +134,7 @@ Com o crescimento do projeto, novos módulos poderão ser adicionados.
 ### Fase 4
 
 - [ ] Auth Service
-- [ ] API Gateway
+- [x] API Gateway
 - [ ] Observability
 - [ ] Event Bus
 
