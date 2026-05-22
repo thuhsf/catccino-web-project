@@ -41,6 +41,10 @@ class UpdateProductUseCase {
             product.changeImage(data.product.imageUrl);
         };
 
+        if (data.product.thumbnailUrl) {
+            product.changeThumbnail(data.product.thumbnailUrl);
+        };
+
         const updatedProduct = await this.repository.update(product);
 
         if (!updatedProduct) {
@@ -56,6 +60,7 @@ class UpdateProductUseCase {
                 description: updatedProduct.getDescription(),
                 price: updatedProduct.getPrice(),
                 imageUrl: updatedProduct.getImageUrl(),
+                thumbnailUrl: updatedProduct.getThumbnailUrl(),
                 createdAt: updatedProduct.getCreatedAt(),
                 updatedAt: updatedProduct.getUpdatedAt()
             }

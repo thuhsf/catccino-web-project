@@ -19,6 +19,7 @@ class ListProductUseCase {
                 categoryId: product.getCategoryId(),
                 available: product.getAvailable(),
                 imageUrl: product.getImageUrl(),
+                thumbnailUrl: product.getThumbnailUrl(),
                 createdAt: product.getCreatedAt(),
                 updatedAt: product.getUpdatedAt(),
             }))

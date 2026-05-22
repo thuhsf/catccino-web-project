@@ -6,6 +6,7 @@ type Product = {
     categoryId: string;
     available?: boolean | undefined;
     imageUrl?: string | undefined;
+    thumbnailUrl?: string | undefined;
 };
 
 type PartialProduct = {
@@ -16,6 +17,7 @@ type PartialProduct = {
     categoryId?: string | undefined;
     available?: boolean | undefined;
     imageUrl?: string | undefined;
+    thumbnailUrl?: string | undefined;
 };
 
 export interface ProductRequestDTO {

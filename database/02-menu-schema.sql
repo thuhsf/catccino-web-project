@@ -16,6 +16,7 @@ CREATE TABLE products (
     category_id UUID NOT NULL,
     available BOOLEAN DEFAULT true,
     image_url TEXT,
+    thumbnail_url TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     CONSTRAINT fk_product_category FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE

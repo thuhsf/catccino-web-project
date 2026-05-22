@@ -30,7 +30,8 @@ class CreateProductUseCase {
             price: data.product.price,
             categoryId: data.product.categoryId,
             available: data.product.available ?? false,
-            imageUrl: data.product.imageUrl ?? ""
+            imageUrl: data.product.imageUrl ?? "",
+            thumbnailUrl: data.product.thumbnailUrl ?? ""
         });
 
         const createdProduct = await this.productRepository.create(newProduct);
@@ -48,6 +49,7 @@ class CreateProductUseCase {
                 categoryId: createdProduct.getCategoryId(),
                 available: createdProduct.getAvailable(),
                 imageUrl: createdProduct.getImageUrl(),
+                thumbnailUrl: createdProduct.getThumbnailUrl(),
                 createdAt: createdProduct.getCreatedAt(),
                 updatedAt: createdProduct.getUpdatedAt()
             }

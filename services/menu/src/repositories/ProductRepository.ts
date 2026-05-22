@@ -13,6 +13,7 @@ class ProductRepository implements IProductRepository {
             categoryId: row.category_id,
             available: row.available,
             imageUrl: row.image_url,
+            thumbnailUrl: row.thumbnail_url,
             createdAt: row.created_at,
             updatedAt: row.updated_at
         });
@@ -20,8 +21,8 @@ class ProductRepository implements IProductRepository {
 
     async create(data: Product): Promise<Product | null> {
         const sql = `
-			INSERT INTO products (name, description, price, category_id, available, image_url, created_at, updated_at)
-			VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())
+			INSERT INTO products (name, description, price, category_id, available, image_url, thumbnail_url, created_at, updated_at)
+			VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW())
 			RETURNING *
 		`;
         const result = await pool.query(sql, [
@@ -30,7 +31,8 @@ class ProductRepository implements IProductRepository {
             data.getPrice(),
             data.getCategoryId(),
             data.getAvailable(),
-            data.getImageUrl()
+            data.getImageUrl(),
+            data.getThumbnailUrl()
         ]);
 
         if (!result.rows.length) {
@@ -50,8 +52,9 @@ class ProductRepository implements IProductRepository {
 			  category_id = $4,
 			  available = $5,
 			  image_url = $6,
+              thumbnail_url = $7,
 			  updated_at = NOW()
-			WHERE id = $7
+			WHERE id = $8
 			RETURNING *
 		`;
 
@@ -62,6 +65,7 @@ class ProductRepository implements IProductRepository {
             data.getCategoryId(),
             data.getAvailable(),
             data.getImageUrl(),
+            data.getThumbnailUrl(),
             data.getId()
         ]);
 
@@ -77,6 +81,7 @@ class ProductRepository implements IProductRepository {
             categoryId: result.rows[0].category_id,
             available: result.rows[0].available,
             imageUrl: result.rows[0].image_url,
+            thumbnailUrl: result.rows[0].thumbnail_url
         });
     };
 
