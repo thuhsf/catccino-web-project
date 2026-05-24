@@ -13,14 +13,14 @@ class ProductGateway implements IProductGateway {
     };
 
     async findProductById(productId: string) {
-        const res = await this.api.get(`/api/v1/products/${productId}`);
+        const res = await this.api.get(`/products/${productId}`);
 
         return res.data.product;
     };
 
     async findProductByName(productName: string) {
         const res = await this.api.get(
-            `/api/v1/products?name=${productName}`
+            `/products?name=${productName}`
         );
 
         return res.data;
@@ -28,7 +28,7 @@ class ProductGateway implements IProductGateway {
 
     async findProducts() {
         const res = await this.api.get(
-            "/api/v1/products"
+            "/products"
         );
 
         return res.data;
