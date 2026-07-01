@@ -2,7 +2,14 @@
 
 Backend de uma cafeteria temática inspirada em gatos.
 
-O projeto surgiu com a ideia de criar um sistema simples, organizado e escalável para uma coffee shop fictícia chamada **Catccino**, unindo um ambiente aconchegante com uma arquitetura moderna baseada em microsserviços.
+O objetivo principal do projeto é estudar uma arquitetura de backend usando microsserviços, mensageria com Kafka e Clean Architecture.
+
+O sistema simula o funcionamento de uma cafeteria:
+- O cliente consulta o cardápio;
+- Faz um pedido;
+- Esse pedido vai para a cozinha;
+- O pagamento é processado;
+- E o cliente recebe notificações durante todo o processo.
 
 ---
 
