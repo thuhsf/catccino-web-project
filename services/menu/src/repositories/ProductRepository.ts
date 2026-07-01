@@ -1,6 +1,9 @@
 import { pool } from "@database/pg.js";
 import Product from "@entities/product/Product.js";
-import type { IProductFactory, IProductRepository } from "@repositories/interfaces/IProductRepository.js";
+import type {
+    IProductFactory,
+    IProductRepository,
+} from "@repositories/interfaces/IProductRepository.js";
 import type { ProductRow } from "@repositories/types/ProductRow.js";
 
 class ProductRepository implements IProductRepository {
@@ -15,9 +18,9 @@ class ProductRepository implements IProductRepository {
             imageUrl: row.image_url,
             thumbnailUrl: row.thumbnail_url,
             createdAt: row.created_at,
-            updatedAt: row.updated_at
+            updatedAt: row.updated_at,
         });
-    };
+    }
 
     async create(data: Product): Promise<Product | null> {
         const sql = `
@@ -32,12 +35,12 @@ class ProductRepository implements IProductRepository {
             data.getCategoryId(),
             data.getAvailable(),
             data.getImageUrl(),
-            data.getThumbnailUrl()
+            data.getThumbnailUrl(),
         ]);
 
         if (!result.rows.length) {
             return null;
-        };
+        }
 
         return this.mapToEntity(result.rows[0]);
     }
@@ -66,12 +69,12 @@ class ProductRepository implements IProductRepository {
             data.getAvailable(),
             data.getImageUrl(),
             data.getThumbnailUrl(),
-            data.getId()
+            data.getId(),
         ]);
 
         if (!result.rows.length) {
             return null;
-        };
+        }
 
         return new Product({
             id: result.rows[0].id,
@@ -81,15 +84,15 @@ class ProductRepository implements IProductRepository {
             categoryId: result.rows[0].category_id,
             available: result.rows[0].available,
             imageUrl: result.rows[0].image_url,
-            thumbnailUrl: result.rows[0].thumbnail_url
+            thumbnailUrl: result.rows[0].thumbnail_url,
         });
-    };
+    }
 
     async findByName(name: string): Promise<Product | null> {
         const sql = `
-        SELECT * FROM products
-        WHERE name ILIKE $1
-    `;
+            SELECT * FROM products
+            WHERE name ILIKE $1
+        `;
 
         const result = await pool.query(sql, [name]);
 
@@ -102,9 +105,9 @@ class ProductRepository implements IProductRepository {
 
     async searchByName(name: string): Promise<Product[]> {
         const sql = `
-        SELECT * FROM products
-        WHERE name ILIKE $1
-    `;
+            SELECT * FROM products
+            WHERE name ILIKE $1
+        `;
         const result = await pool.query<ProductRow>(sql, [`%${name}%`]);
         return result.rows.map((row: ProductRow) => this.mapToEntity(row));
     }
@@ -117,7 +120,7 @@ class ProductRepository implements IProductRepository {
         const result = await pool.query<ProductRow>(sql);
 
         return result.rows.map((row: ProductRow) => this.mapToEntity(row));
-    };
+    }
 
     async findById(id: string): Promise<Product | null> {
         const sql = `
@@ -129,16 +132,16 @@ class ProductRepository implements IProductRepository {
 
         if (!result.rows.length) {
             return null;
-        };
+        }
 
         return this.mapToEntity(result.rows[0]);
-    };
-};
+    }
+}
 
 class ProductFactory implements IProductFactory {
     createRepository(): IProductRepository {
         return new ProductRepository();
-    };
-};
+    }
+}
 
 export { ProductFactory, ProductRepository };

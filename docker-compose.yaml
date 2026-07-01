@@ -64,7 +64,7 @@ services:
 
       KAFKA_LOG4J_ROOT_LOGLEVEL: "WARN"
       KAFKA_LOG4J_LOGGERS: "kafka.controller=WARN,kafka.producer.async.DefaultEventHandler=WARN,state.change.logger=WARN"
-      
+
       KAFKA_LOG_RETENTION_HOURS: 24
       KAFKA_LOG_RETENTION_BYTES: 1073741824
     ports:
@@ -152,7 +152,7 @@ services:
       options:
         max-size: "50m"
         max-file: "3"
- 
+
   order:
     container_name: order
     build:
@@ -245,6 +245,46 @@ services:
         max-size: "50m"
         max-file: "3"
 
+  customer:
+    container_name: customer
+    build:
+      context: ./services/customer
+      dockerfile: Dockerfile
+    networks:
+      - services
+    restart: always
+    env_file:
+      - ./services/customer/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  auth:
+    container_name: auth
+    build:
+      context: ./services/auth
+      dockerfile: Dockerfile
+    networks:
+      - services
+    restart: always
+    env_file:
+      - ./services/auth/.env
+    depends_on:
+      db:
+        condition: service_healthy
+      customer:
+        condition: service_started
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -260,9 +300,11 @@ services:
       - payment
       - kitchen
       - notification
+      - customer
+      - auth
     networks:
       - services
-  
+
   swagger:
     image: swaggerapi/swagger-ui:v5.32.1
     container_name: swagger
