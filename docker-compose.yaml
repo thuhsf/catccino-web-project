@@ -285,6 +285,35 @@ services:
         max-size: "50m"
         max-file: "3"
 
+  frontend:
+    container_name: frontend
+    hostname: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+      auth:
+        condition: service_started
+      customer:
+        condition: service_started
+      kitchen:
+        condition: service_started
+      menu:
+        condition: service_started
+      notification:
+        condition: service_started
+      order:
+        condition: service_started
+      payment:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - services
+
   nginx:
     image: nginx:latest
     container_name: nginx
@@ -302,6 +331,7 @@ services:
       - notification
       - customer
       - auth
+      - frontend
     networks:
       - services
 

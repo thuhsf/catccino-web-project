@@ -18,7 +18,7 @@ class CustomerGateway implements ICustomerGateway {
         email: string;
         phone: string;
     }): Promise<CustomerDTO> {
-        const res = await this.api.post("/api/customers", data);
+        const res = await this.api.post("/customers", data);
 
         const { id, name, email, phone, created_at, updated_at } = res.data;
 
@@ -27,7 +27,7 @@ class CustomerGateway implements ICustomerGateway {
 
     async findCustomerById(customerId: string): Promise<CustomerDTO | null> {
         try {
-            const res = await this.api.get(`/api/customers/${customerId}`);
+            const res = await this.api.get(`/customers/${customerId}`);
 
             return res.data.customer ?? null;
         } catch (err: any) {

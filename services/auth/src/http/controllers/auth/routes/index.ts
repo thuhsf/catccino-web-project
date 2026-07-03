@@ -6,8 +6,8 @@ import { ensureAuthenticated } from "@middlewares/ensureAuthenticated.js";
 
 const router: IRouter = Router();
 
-router.post("/auth/register", RegisterController);
-router.post("/auth/login", LoginController);
-router.get("/auth/me", ensureAuthenticated, MeController);
+router.post("/register", RegisterController);
+router.post("/login", LoginController);
+router.get("/me", ensureAuthenticated, MeController);
 
 export default router;

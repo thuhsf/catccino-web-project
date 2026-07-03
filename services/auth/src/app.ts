@@ -15,7 +15,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api", AuthRoutes);
+app.use(AuthRoutes);
 
 app.use((req, res) => {
     res.status(404).send("Not Found");

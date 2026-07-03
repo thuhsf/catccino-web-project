@@ -20,10 +20,10 @@ class CustomerRepository implements ICustomerRepository {
 
     async create(data: Customer): Promise<Customer | null> {
         const sql = `
-			INSERT INTO customers (name, email, phone)
-			VALUES ($1, $2, $3, NOW(), NOW())
-			RETURNING *
-		`;
+            INSERT INTO customers (name, email, phone)
+            VALUES ($1, $2, $3)
+            RETURNING *
+        `;
 
         const result = await pool.query(sql, [
             data.getName(),

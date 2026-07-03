@@ -23,10 +23,9 @@ async function RegisterCategoryController(req: Request, res: Response) {
     } catch (err: Error | any) {
         console.error(err);
         res
-            .status(500)
+            .status(400)
             .json({
-                message: "Erro ao criar categoria",
-                status: 500
+                error: err.message,
             });
     };
 };
